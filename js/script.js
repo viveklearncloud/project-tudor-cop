@@ -280,13 +280,15 @@ function renderCommunications() {
 function renderMeetings() {
     const list = document.getElementById('meetingsList');
     
-    // Sort meetings by date in descending order
-    const sortedMeetings = [...dataManager.meetings].sort((a, b) => 
-        new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`)
-    );
+    // Sort meetings by date and time in descending order
+    const sortedMeetings = [...dataManager.meetings].sort((a, b) => {
+        const dateA = new Date(`${a.date}T${a.time}`);
+        const dateB = new Date(`${b.date}T${b.time}`);
+        return dateB - dateA; // Descending order (newest first)
+    });
 
     if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.  Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.   Add one to get started!</p>';
         return;
     }
 
@@ -294,8 +296,8 @@ function renderMeetings() {
         <div class="timeline-container">
             ${sortedMeetings.map((meeting, index) => {
                 // Find linked document
-                const linkedDoc = meeting.linkedDocumentId ? 
-                    dataManager.documents.find(d => d.id === meeting.linkedDocumentId) : null;
+                const linkedDoc = meeting. linkedDocumentId ? 
+                    dataManager.documents.find(d => d.id === meeting. linkedDocumentId) : null;
                 
                 return `
                     <div class="timeline-item">
@@ -306,7 +308,7 @@ function renderMeetings() {
                             <p><strong>Details:</strong> ${meeting.details}</p>
                             <div class="timeline-meta">
                                 <span class="timeline-date">${formatDate(meeting.date)} at ${meeting.time}</span>
-                                ${meeting.location ? `<span class="timeline-location">📍 ${meeting.location}</span>` : ''}
+                                ${meeting.location ? `<span class="timeline-location">📍 ${meeting. location}</span>` : ''}
                                 ${linkedDoc ? `<button class="btn-view-doc" onclick="viewDocument(${linkedDoc. id})">📄 View Document</button>` : ''}
                             </div>
                         </div>
