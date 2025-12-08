@@ -62,5 +62,13 @@
         "thumbnail": "📊",
         "path": "documents/payment-schedule.pdf",
         "uploadDate": "2025-10-20"
+    },
+    {
+        "id": 8,
+        "name": "20-Sep-2025 - Minutes of Meeting - CG & Owners",
+        "type": "mom",
+        "thumbnail": "📊",
+        "path": "documents/payment-schedule.pdf",
+        "uploadDate": "2025-10-20"
     }
 ]
