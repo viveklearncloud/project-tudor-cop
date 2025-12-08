@@ -204,9 +204,11 @@ function setupCommunications() {
     const addBtn = document.getElementById('addCommBtn');
     const commForm = document.getElementById('commForm');
 
-    addBtn.addEventListener('click', () => {
-        modalManager.openModal('commModal');
-    });
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            modalManager.openModal('commModal');
+        });    
+    }
 
     commForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -273,9 +275,11 @@ function setupMeetings() {
     const addBtn = document.getElementById('addMeetingBtn');
     const meetingForm = document.getElementById('meetingForm');
 
-    addBtn.addEventListener('click', () => {
-        modalManager.openModal('meetingModal');
-    });
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            modalManager.openModal('meetingModal');
+        });
+    }
 
     meetingForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -484,7 +488,7 @@ function setupAboutTabs() {
     const tabContents = document.querySelectorAll('.about-tab-content');
 
     tabButtons.forEach(btn => {
-        btn. addEventListener('click', (e) => {
+        btn.addEventListener('click', (e) => {
             e.preventDefault();
             
             const tabName = btn.getAttribute('data-tab');
