@@ -86,7 +86,17 @@
         "date": "2024-11-16",
         "time": "10:00 AM",
         "details": "Patta Issues, EB Connection & Power Cut Issues, Stary Dogs, Lift Issues & Other Daily Concerns",
-        "location": "Tudor Premises - Site Office",
+        "location": "Tudor Premises - C Block Parking",
         "linkedDocumentId": 18
+    },
+    {
+        "id": 15,
+        "title": "Casagrand & Owners Meeting (25-05-2024)",
+        "with": "Owners & Casagrand Representatives",
+        "date": "2024-05-25",
+        "time": "10:00 AM",
+        "details": "Project Progress, Pending Constructional Issues Timeline & Other Customer Queries related to Handovers",
+        "location": "Tudor Premises - B Block Parking",
+        "linkedDocumentId": 20
     }
 ]
