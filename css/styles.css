@@ -674,11 +674,25 @@ body {
 }
 
 /* Footer with Marquee */
+/* Footer with Marquee - Fixed at Bottom */
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+}
+
 .footer {
     background-color: var(--primary-color);
     color: var(--white);
     padding: 1rem 0;
-    margin-top: 3rem;
+    margin-top: auto;
     overflow: hidden;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }
