@@ -13,10 +13,10 @@ navLinks.forEach(link => {
         e. preventDefault();
         
         // Remove active class from all links
-        navLinks.forEach(l => l.classList.remove('active'));
+        navLinks.forEach(l => l. classList.remove('active'));
         
         // Add active class to clicked link
-        link. classList.add('active');
+        link.classList.add('active');
         
         // Close menu
         hamburger.classList.remove('active');
@@ -28,11 +28,29 @@ navLinks.forEach(link => {
     });
 });
 
-// Section Management
+// Section Management - FIXED
 function showSection(sectionId) {
-    const sections = document.querySelectorAll('. section');
-    sections.forEach(section => section.classList.remove('active'));
-    document.getElementById(sectionId).classList.add('active');
+    console.log('showSection called with:', sectionId);
+    
+    // Get all sections
+    const sections = document. querySelectorAll('.section');
+    console.log('Found sections:', sections.length);
+    
+    // Remove active from all
+    sections.forEach(section => {
+        section.classList.remove('active');
+        console.log('Removed active from:', section.id);
+    });
+    
+    // Add active to target section
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.classList.add('active');
+        console.log('Added active to:', sectionId);
+    } else {
+        console.error('Section not found:', sectionId);
+    }
+    
     updateDashboard();
 }
 
@@ -220,8 +238,8 @@ function setupCommunications() {
         const communication = {
             name: document.getElementById('commName').value,
             type: document.getElementById('commType').value,
-            details: document.getElementById('commDetails'). value,
-            date: document. getElementById('commDate').value
+            details: document.getElementById('commDetails').value,
+            date: document.getElementById('commDate').value
         };
 
         dataManager.addCommunication(communication);
@@ -236,11 +254,11 @@ function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
     if (dataManager.communications.length === 0) {
-        list. innerHTML = '<p class="empty-message">No communications yet.  Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No communications yet.  Add one to get started!</p>';
         return;
     }
 
-    list.innerHTML = dataManager.communications.map(comm => `
+    list. innerHTML = dataManager.communications.map(comm => `
         <div class="communication-item">
             <div class="comm-details">
                 <span class="comm-type">${comm.type. toUpperCase()}</span>
@@ -273,7 +291,7 @@ function setupMeetings() {
             location: document.getElementById('meetingLocation').value
         };
 
-        dataManager. addMeeting(meeting);
+        dataManager.addMeeting(meeting);
         meetingForm.reset();
         modalManager.closeModal('meetingModal');
         renderMeetings();
@@ -285,12 +303,12 @@ function renderMeetings() {
     const list = document.getElementById('meetingsList');
     
     // Sort meetings by date in descending order
-    const sortedMeetings = [...dataManager. meetings].sort((a, b) => 
+    const sortedMeetings = [... dataManager.meetings].sort((a, b) => 
         new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`)
     );
 
     if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet. Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.  Add one to get started!</p>';
         return;
     }
 
@@ -327,7 +345,7 @@ function setupDocuments() {
 
 function filterDocuments() {
     const search = document.getElementById('docSearch').value. toLowerCase();
-    const filter = document.getElementById('docFilter'). value;
+    const filter = document.getElementById('docFilter').value;
 
     const filtered = dataManager.documents.filter(doc => {
         const matchesSearch = doc.name.toLowerCase().includes(search);
@@ -358,10 +376,10 @@ function renderFilteredDocuments(docs) {
             <div class="doc-info">
                 <h4>${doc.name}</h4>
                 <p>${formatDate(doc.uploadDate)}</p>
-                <span class="doc-type">${doc.type.toUpperCase()}</span>
+                <span class="doc-type">${doc.type. toUpperCase()}</span>
             </div>
         </div>
-    `). join('');
+    `).join('');
 }
 
 function viewDocument(docId) {
@@ -376,11 +394,56 @@ function viewDocument(docId) {
 }
 
 function downloadDocument(path, name) {
-    // Create a link element and trigger download
     const link = document.createElement('a');
     link.href = path;
     link.download = name;
     link.click();
+}
+
+// Dashboard Card Navigation
+function setupDashboardCards() {
+    const dashboardCards = document.querySelectorAll('.dashboard-card');
+    console.log('Setting up dashboard cards.  Found:', dashboardCards.length);
+    
+    dashboardCards.forEach((card, index) => {
+        card.style.cursor = 'pointer';
+        
+        card.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            let sectionId;
+            
+            // Map card index to section ID
+            if (index === 0) {
+                sectionId = 'communications';
+            } else if (index === 1) {
+                sectionId = 'meetings';
+            } else if (index === 2) {
+                sectionId = 'documents';
+            }
+            
+            if (sectionId) {
+                console.log('Card clicked - Navigating to:', sectionId);
+                
+                // Update nav links
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Close menu
+                hamburger.classList.remove('active');
+                navMenu. classList.remove('active');
+                
+                // Show section
+                showSection(sectionId);
+            }
+        });
+    });
 }
 
 // Dashboard Updates
@@ -389,7 +452,7 @@ function updateDashboard() {
     document.getElementById('meeting-count').textContent = dataManager.meetings.length;
     document.getElementById('doc-count').textContent = dataManager.documents.length;
 
-    document.getElementById('total-comm').textContent = dataManager.communications.length;
+    document.getElementById('total-comm'). textContent = dataManager.communications. length;
     document.getElementById('total-meet').textContent = dataManager.meetings.length;
     document.getElementById('total-docs').textContent = dataManager.documents.length;
 }
@@ -402,26 +465,17 @@ function formatDate(dateString) {
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('Initializing app...');
+    
     dataManager.init();
     modalManager.setupCloseButtons();
     setupCommunications();
     setupMeetings();
     setupDocuments();
+    setupDashboardCards();
+    
     updateDashboard();
     renderCommunications();
     renderMeetings();
     renderDocuments();
-
-    // Dashboard cards click navigation
-    document.querySelectorAll('.dashboard-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const index = Array.from(document.querySelectorAll('.dashboard-card')).indexOf(card);
-            const sections = ['communications', 'meetings', 'documents'];
-            if (sections[index]) {
-                navLinks. forEach(l => l.classList.remove('active'));
-                document.querySelector(`[data-section="${sections[index]}"]`).classList.add('active');
-                showSection(sections[index]);
-            }
-        });
-    });
 });
