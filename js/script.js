@@ -478,6 +478,28 @@ function setupBackButtons() {
     });
 }
 
+// About Page Tabs
+function setupAboutTabs() {
+    const tabButtons = document.querySelectorAll('. about-tab-btn');
+    const tabContents = document.querySelectorAll('.about-tab-content');
+
+    tabButtons.forEach(btn => {
+        btn. addEventListener('click', (e) => {
+            e. preventDefault();
+            
+            const tabName = btn.getAttribute('data-tab');
+            
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(b => b.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding content
+            btn.classList.add('active');
+            document.getElementById(tabName).classList. add('active');
+        });
+    });
+}
+
 // Dashboard Updates
 function updateDashboard() {
     document.getElementById('comm-count').textContent = dataManager.communications.length;
@@ -508,6 +530,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupDocuments();
     setupDashboardCards();
     setupBackButtons();
+    setupAboutTabs();
     
     updateDashboard();
     renderCommunications();
