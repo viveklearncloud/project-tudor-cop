@@ -48,5 +48,15 @@
         "details": "Project Completion Timeline, Pending Constructional Issues, Pending Amenities, Daily Issues & Security Concerns",
         "location": "Tudor Premises - F Block Stilt Parking",
         "linkedDocumentId": 14
+    },
+    {
+        "id": 11,
+        "title": "Casagrand & Owners Meeting (15-Mar-2025)",
+        "with": "Owners & Casagrand Representatives",
+        "date": "2025-03-15",
+        "time": "10:00 AM",
+        "details": "Daily Issues, Major Water related Topics & House Keeping Issues",
+        "location": "Tudor Premises - F Block Stilt Parking",
+        "linkedDocumentId": 15
     }
 ]
