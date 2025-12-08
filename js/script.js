@@ -10,16 +10,16 @@ hamburger.addEventListener('click', () => {
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e. preventDefault();
+        e.  preventDefault();
         
         // Remove active class from all links
-        navLinks.forEach(l => l. classList.remove('active'));
+        navLinks.forEach(l => l.  classList.remove('active'));
         
         // Add active class to clicked link
         link.classList.add('active');
         
         // Close menu
-        hamburger.classList.remove('active');
+        hamburger.classList. remove('active');
         navMenu.classList.remove('active');
         
         // Show section
@@ -33,7 +33,7 @@ function showSection(sectionId) {
     console.log('showSection called with:', sectionId);
     
     // Get all sections
-    const sections = document. querySelectorAll('.section');
+    const sections = document.  querySelectorAll('.section');
     console.log('Found sections:', sections.length);
     
     // Remove active from all
@@ -68,7 +68,7 @@ const dataManager = {
             const commResponse = await fetch('models/communications.json');
             if (commResponse.ok) {
                 this.communications = await commResponse.json();
-                console.log('Communications loaded:', this.communications. length);
+                console.log('Communications loaded:', this.communications.length);
             }
             
             // Load meetings
@@ -102,7 +102,7 @@ const dataManager = {
             
         } catch (error) {
             console.error('Error loading JSON files:', error);
-            console.log('Using default data...');
+            console.log('Using default data.. .');
             this.loadDefaultData();
         }
     },
@@ -153,7 +153,7 @@ const dataManager = {
     addCommunication(comm) {
         comm.id = Date.now();
         this.communications.unshift(comm);
-        this. save();
+        this.  save();
     },
 
     addMeeting(meeting) {
@@ -181,7 +181,7 @@ const modalManager = {
 
     setupCloseButtons() {
         const closeButtons = document.querySelectorAll('.close-modal');
-        closeButtons. forEach(btn => {
+        closeButtons.  forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
                 this.closeModal(modal.id);
@@ -191,8 +191,8 @@ const modalManager = {
         // Close on outside click
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e. target === modal) {
-                    this. closeModal(modal.id);
+                if (e.  target === modal) {
+                    this.  closeModal(modal.id);
                 }
             });
         });
@@ -220,30 +220,52 @@ function setupCommunications() {
 
         dataManager.addCommunication(communication);
         commForm.reset();
-        modalManager.closeModal('commModal');
+        modalManager. closeModal('commModal');
         renderCommunications();
         updateDashboard();
     });
 }
 
+// UPDATED: Render communications as timeline like meetings
 function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
-    if (dataManager.communications. length === 0) {
-        list.innerHTML = '<p class="empty-message">No communications yet.  Add one to get started!</p>';
+    // Sort communications by date in descending order
+    const sortedComms = [...dataManager.communications]. sort((a, b) => 
+        new Date(b.date) - new Date(a.date)
+    );
+
+    if (sortedComms.length === 0) {
+        list. innerHTML = '<p class="empty-message">No communications yet.   Add one to get started!</p>';
         return;
     }
 
-    list. innerHTML = dataManager.communications.map(comm => `
-        <div class="communication-item">
-            <div class="comm-details">
-                <span class="comm-type">${comm.type. toUpperCase()}</span>
-                <h3>${comm.name}</h3>
-                <p>${comm.details}</p>
-            </div>
-            <div class="comm-date">${formatDate(comm.date)}</div>
+    // Map communication types to icons
+    const iconMap = {
+        'email': '📧',
+        'phone': '☎️',
+        'whatsapp': '💬',
+        'in-person': '👤'
+    };
+
+    list.innerHTML = `
+        <div class="timeline-container">
+            ${sortedComms.map((comm, index) => `
+                <div class="timeline-item">
+                    <div class="timeline-marker">${iconMap[comm.type] || '📞'}</div>
+                    <div class="timeline-content">
+                        <h3>${comm.name}</h3>
+                        <p><strong>Type:</strong> ${comm.type. charAt(0).toUpperCase() + comm.type.slice(1). replace('-', ' ')}</p>
+                        <p><strong>Details:</strong> ${comm.details}</p>
+                        <div class="timeline-meta">
+                            <span class="timeline-date">${formatDate(comm.date)}</span>
+                            <span class="timeline-type">${comm.type. toUpperCase()}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
         </div>
-    `).join('');
+    `;
 }
 
 // Meeting Management
@@ -260,8 +282,8 @@ function setupMeetings() {
 
         const meeting = {
             title: document.getElementById('meetingTitle').value,
-            with: document.getElementById('meetingWith').value,
-            date: document.getElementById('meetingDate').value,
+            with: document.getElementById('meetingWith'). value,
+            date: document. getElementById('meetingDate').value,
             time: document.getElementById('meetingTime').value,
             details: document.getElementById('meetingDetails').value,
             location: document.getElementById('meetingLocation').value
@@ -284,7 +306,7 @@ function renderMeetings() {
     );
 
     if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet. Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.  Add one to get started!</p>';
         return;
     }
 
@@ -294,7 +316,7 @@ function renderMeetings() {
                 <div class="timeline-item">
                     <div class="timeline-marker">📅</div>
                     <div class="timeline-content">
-                        <h3>${meeting.title}</h3>
+                        <h3>${meeting. title}</h3>
                         <p><strong>With:</strong> ${meeting.with}</p>
                         <p><strong>Details:</strong> ${meeting.details}</p>
                         <div class="timeline-meta">
@@ -314,13 +336,13 @@ function setupDocuments() {
     const filterSelect = document.getElementById('docFilter');
 
     searchBox.addEventListener('input', filterDocuments);
-    filterSelect. addEventListener('change', filterDocuments);
+    filterSelect.  addEventListener('change', filterDocuments);
 
     renderDocuments();
 }
 
 function filterDocuments() {
-    const search = document.getElementById('docSearch').value. toLowerCase();
+    const search = document.getElementById('docSearch').value.  toLowerCase();
     const filter = document.getElementById('docFilter').value;
 
     const filtered = dataManager.documents.filter(doc => {
@@ -340,19 +362,19 @@ function renderFilteredDocuments(docs) {
     const grid = document.getElementById('documentsList');
 
     if (docs.length === 0) {
-        grid.innerHTML = '<p class="empty-message">No documents found. </p>';
+        grid.innerHTML = '<p class="empty-message">No documents found.  </p>';
         return;
     }
 
     grid.innerHTML = docs.map(doc => `
-        <div class="document-tile" onclick="viewDocument(${doc. id})">
+        <div class="document-tile" onclick="viewDocument(${doc.id})">
             <div class="doc-thumbnail">
                 ${doc.thumbnail}
             </div>
             <div class="doc-info">
                 <h4>${doc.name}</h4>
                 <p>${formatDate(doc.uploadDate)}</p>
-                <span class="doc-type">${doc.type. toUpperCase()}</span>
+                <span class="doc-type">${doc.type.toUpperCase()}</span>
             </div>
         </div>
     `).join('');
@@ -360,7 +382,7 @@ function renderFilteredDocuments(docs) {
 
 function viewDocument(docId) {
     const doc = dataManager.documents.find(d => d.id === docId);
-    if (! doc) return;
+    if (!doc) return;
 
     document.getElementById('docViewerTitle').textContent = doc.name;
     document.getElementById('docViewerImg').src = doc.path;
@@ -379,13 +401,13 @@ function downloadDocument(path, name) {
 // Dashboard Card Navigation
 function setupDashboardCards() {
     const dashboardCards = document.querySelectorAll('.dashboard-card');
-    console.log('Setting up dashboard cards.  Found:', dashboardCards.length);
+    console.log('Setting up dashboard cards.   Found:', dashboardCards.length);
     
     dashboardCards.forEach((card, index) => {
         card.style.cursor = 'pointer';
         
         card.addEventListener('click', function(e) {
-            e.preventDefault();
+            e. preventDefault();
             e.stopPropagation();
             
             let sectionId;
@@ -403,7 +425,7 @@ function setupDashboardCards() {
                 console.log('Card clicked - Navigating to:', sectionId);
                 
                 // Update nav links
-                navLinks.forEach(link => {
+                navLinks. forEach(link => {
                     if (link.getAttribute('data-section') === sectionId) {
                         link.classList.add('active');
                     } else {
@@ -412,7 +434,7 @@ function setupDashboardCards() {
                 });
                 
                 // Close menu
-                hamburger.classList.remove('active');
+                hamburger.classList. remove('active');
                 navMenu.classList.remove('active');
                 
                 // Show section
@@ -430,7 +452,7 @@ function updateDashboard() {
 
     document.getElementById('total-comm'). textContent = dataManager.communications. length;
     document.getElementById('total-meet').textContent = dataManager.meetings.length;
-    document.getElementById('total-docs').textContent = dataManager.documents.length;
+    document.getElementById('total-docs'). textContent = dataManager.documents. length;
 }
 
 // Utility Functions
