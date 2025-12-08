@@ -402,12 +402,61 @@ function renderFilteredDocuments(docs) {
 
 function viewDocument(docId) {
     const doc = dataManager.documents.find(d => d.id === docId);
-    if (! doc) return;
+    if (!doc) return;
 
     document.getElementById('docViewerTitle').textContent = doc.name;
-    document.getElementById('docViewerFrame'). src = doc.path;
-    document.getElementById('docDownloadBtn'). onclick = () => downloadDocument(doc. path, doc.name);    
-    document.getElementById('docOpenNewBtn').onclick = () => {
+    
+    // Get file extension
+    const fileExtension = doc.path.split('.').pop().toLowerCase();
+    
+    // Determine viewer type based on file extension
+    const isImage = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(fileExtension);
+    const isPdf = fileExtension === 'pdf';
+    const isExcel = ['xls', 'xlsx', 'xlsm'].includes(fileExtension);
+    const isWord = ['doc', 'docx']. includes(fileExtension);
+    
+    const docViewer = document.getElementById('docViewerFrame');
+    const docViewerContainer = docViewer.parentElement;
+    
+    // Clear previous content
+    docViewerContainer.innerHTML = '';
+    
+    // Create appropriate viewer based on file type
+    if (isImage) {
+        const img = document.createElement('img');
+        img.src = doc.path;
+        img.alt = doc.name;
+        img.style.cssText = 'max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px;';
+        docViewerContainer. appendChild(img);
+    } else if (isPdf) {
+        const iframe = document.createElement('iframe');
+        iframe.src = doc.path;
+        iframe.type = 'application/pdf';
+        iframe.style.cssText = 'width: 100%; height: 500px; border: none; border-radius: 8px;';
+        docViewerContainer.appendChild(iframe);
+    } else if (isExcel) {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://view.officeapps.live. com/op/embed. aspx?src=${encodeURIComponent(window.location.origin + '/' + doc.path)}`;
+        iframe.style.cssText = 'width: 100%; height: 600px; border: none; border-radius: 8px;';
+        docViewerContainer.appendChild(iframe);
+    } else if (isWord) {
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://view.officeapps.live. com/op/embed.aspx?src=${encodeURIComponent(window.location.origin + '/' + doc.path)}`;
+        iframe.style.cssText = 'width: 100%; height: 600px; border: none; border-radius: 8px;';
+        docViewerContainer.appendChild(iframe);
+    } else {
+        // Fallback for unknown types
+        const p = document.createElement('p');
+        p.style.cssText = 'text-align: center; padding: 2rem; color: #7f8c8d;';
+        p.innerHTML = `<strong>Preview not available for . ${fileExtension} files</strong><br><br>Use the Download button to view this file.`;
+        docViewerContainer.appendChild(p);
+    }
+    
+    // Setup download button
+    document.getElementById('docDownloadBtn').onclick = () => downloadDocument(doc. path, doc.name);
+    
+    // Setup open in new tab button
+    document. getElementById('docOpenNewBtn').onclick = () => {
         window.open(doc.path, '_blank');
     };
 
