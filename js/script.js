@@ -480,7 +480,7 @@ function setupBackButtons() {
 
 // About Page Tabs
 function setupAboutTabs() {
-    const tabButtons = document.querySelectorAll('. about-tab-btn');
+    const tabButtons = document.querySelectorAll('.about-tab-btn');
     const tabContents = document.querySelectorAll('.about-tab-content');
 
     tabButtons.forEach(btn => {
