@@ -385,8 +385,11 @@ function viewDocument(docId) {
     if (! doc) return;
 
     document.getElementById('docViewerTitle').textContent = doc.name;
-    document.getElementById('docViewerImg').src = doc.path;
-    document.getElementById('docDownloadBtn').onclick = () => downloadDocument(doc. path, doc.name);
+    document.getElementById('docViewerFrame'). src = doc.path;
+    document.getElementById('docDownloadBtn'). onclick = () => downloadDocument(doc. path, doc.name);    
+    document.getElementById('docOpenNewBtn').onclick = () => {
+        window.open(doc.path, '_blank');
+    };
 
     modalManager.openModal('docModal');
 }

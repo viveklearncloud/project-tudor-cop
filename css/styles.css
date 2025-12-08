@@ -657,6 +657,22 @@ body {
     font-size: 0.9rem;
 }
 
+.btn-open-new {
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-open-new:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 1rem;
