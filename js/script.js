@@ -86,7 +86,7 @@ const dataManager = {
             }
             
             // Check localStorage for any user-added data
-            const stored = localStorage.getItem('hbTrackerData');
+            /* const stored = localStorage.getItem('hbTrackerData');
             if (stored) {
                 const data = JSON.parse(stored);
                 if (data.communications && data.communications.length > 0) {
@@ -98,7 +98,7 @@ const dataManager = {
                 if (data.documents && data.documents.length > 0) {
                     this. documents = [...this.documents, ... data.documents];
                 }
-            }
+            } */
             
         } catch (error) {
             console.error('Error loading JSON files:', error);
@@ -110,16 +110,16 @@ const dataManager = {
     loadDefaultData() {
         // Fallback data if JSON files fail to load
         this.communications = [
-            {
+            /* {
                 id: 1,
                 name: 'Rajesh Kumar',
                 type: 'email',
                 details: 'Received payment schedule and project timeline update',
                 date: '2025-12-05'
-            }
+            } */
         ];
         this.meetings = [
-            {
+            /* {
                 id: 1,
                 title: 'Site Inspection',
                 with: 'Project Manager',
@@ -127,17 +127,17 @@ const dataManager = {
                 time: '10:00',
                 details: 'Complete inspection of property and surrounding amenities',
                 location: 'Casagrand Tudor, Mumbai'
-            }
+            } */
         ];
         this.documents = [
-            {
+            /* {
                 id: 1,
                 name: 'Property Agreement',
                 type: 'legal',
                 thumbnail: '📄',
                 path: 'documents/agreement.pdf',
                 uploadDate: '2025-11-25'
-            }
+            } */
         ];
     },
 
