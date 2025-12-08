@@ -43,5 +43,14 @@
         "time": "15:30",
         "details": "Home insurance coverage options and premiums",
         "location": "Bank Branch"
+    },
+    {
+        "id": 6,
+        "title": "Owners Meeting (23-Nov-2025)",
+        "with": "Owners & Residents",
+        "date": "2025-11-23",
+        "time": "10:30 AM",
+        "details": "IFM Discussion & Ground-Level Assessment Presentation",
+        "location": "Tudor Premises - F Block Stilt Parking"
     }
 ]
