@@ -173,10 +173,14 @@ const dataManager = {
 const modalManager = {
     openModal(modalId) {
         document.getElementById(modalId).classList.add('active');
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = 'hidden';
     },
 
     closeModal(modalId) {
-        document.getElementById(modalId).classList.remove('active');
+        document.getElementById(modalId).classList. remove('active');
+        // Restore body scroll
+        document.body.style.overflow = 'auto';
     },
 
     setupCloseButtons() {
@@ -188,13 +192,24 @@ const modalManager = {
             });
         });
 
-        // Close on outside click
-        document.querySelectorAll('.modal').forEach(modal => {
+        // Close on outside click (full-page modal)
+        document. querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
+                // Only close if clicking on the background, not the content
                 if (e.target === modal) {
                     this. closeModal(modal.id);
                 }
             });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal. active');
+                if (activeModal) {
+                    this.closeModal(activeModal.id);
+                }
+            }
         });
     }
 };

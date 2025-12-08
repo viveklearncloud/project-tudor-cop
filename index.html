@@ -285,17 +285,19 @@
         </div>
     </div>
 
-    <!-- Document Viewer Modal -->
-    <div id="docModal" class="modal">
-        <div class="modal-content modal-doc-viewer">
-            <span class="close-modal">&times;</span>
-            <h2 id="docViewerTitle">Document Viewer</h2>
-            <div class="doc-viewer">
+    <!-- Document Viewer Modal - Full Page -->
+    <div id="docModal" class="modal modal-fullpage">
+        <div class="modal-content modal-doc-viewer modal-fullpage-content">
+            <div class="modal-header-bar">
+                <h2 id="docViewerTitle">Document Viewer</h2>
+                <span class="close-modal" id="docModalClose">&times;</span>
+            </div>
+            <div class="doc-viewer" id="docViewerFrame">
                 <!-- Content will be dynamically inserted here -->
             </div>
-            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                <button class="btn-download" id="docDownloadBtn">Download</button>
-                <button class="btn-open-new" id="docOpenNewBtn">Open in New Tab</button>
+            <div class="modal-action-bar">
+                <button class="btn-download" id="docDownloadBtn">📥 Download</button>
+                <button class="btn-open-new" id="docOpenNewBtn">🔗 Open in New Tab</button>
             </div>
         </div>
     </div>
