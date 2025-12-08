@@ -86,5 +86,13 @@
         "thumbnail": "📝",
         "path": "documents/23-Nov-2025 - Minutes of Meeting - Owners Only.pdf",
         "uploadDate": "2025-11-23"
+    },
+    {
+        "id": 12,
+        "name": "28-Jun-2025 - Minutes of Meeting - CG & Owners",
+        "type": "mom",
+        "thumbnail": "📝",
+        "path": "documents/28-Jun-2025 - Minutes of Meeting - CG & Owners.pdf",
+        "uploadDate": "2025-06-28"
     }
 ]
