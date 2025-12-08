@@ -280,15 +280,15 @@ function renderCommunications() {
 function renderMeetings() {
     const list = document.getElementById('meetingsList');
     
-    // Sort meetings by date and time in descending order
-    const sortedMeetings = [...dataManager.meetings].sort((a, b) => {
-        const dateA = new Date(`${a.date}T${a.time}`);
-        const dateB = new Date(`${b.date}T${b.time}`);
+    // Sort meetings by date only in descending order (newest first)
+    const sortedMeetings = [...dataManager. meetings].sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
         return dateB - dateA; // Descending order (newest first)
     });
 
-    if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.   Add one to get started!</p>';
+    if (sortedMeetings. length === 0) {
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.   Add one to get started! </p>';
         return;
     }
 
@@ -296,14 +296,14 @@ function renderMeetings() {
         <div class="timeline-container">
             ${sortedMeetings.map((meeting, index) => {
                 // Find linked document
-                const linkedDoc = meeting. linkedDocumentId ? 
-                    dataManager.documents.find(d => d.id === meeting. linkedDocumentId) : null;
+                const linkedDoc = meeting.  linkedDocumentId ? 
+                    dataManager.documents.find(d => d.id === meeting.  linkedDocumentId) : null;
                 
                 return `
                     <div class="timeline-item">
                         <div class="timeline-marker">📅</div>
                         <div class="timeline-content">
-                            <h3>${meeting. title}</h3>
+                            <h3>${meeting.  title}</h3>
                             <p><strong>With:</strong> ${meeting.with}</p>
                             <p><strong>Details:</strong> ${meeting.details}</p>
                             <div class="timeline-meta">
