@@ -65,7 +65,7 @@ const dataManager = {
             console.log('Loading data from JSON files...');
             
             // Load communications
-            const commResponse = await fetch('models/communications. json');
+            const commResponse = await fetch('models/communications.json');
             if (commResponse.ok) {
                 this.communications = await commResponse.json();
                 console.log('Communications loaded:', this.communications. length);
