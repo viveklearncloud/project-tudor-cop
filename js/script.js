@@ -353,17 +353,37 @@ function setupMeetings() {
 // Document Management
 function setupDocuments() {
     const searchBox = document.getElementById('docSearch');
-    const filterSelect = document.getElementById('docFilter');
+    const filterSelect = document. getElementById('docFilter');
+    const viewCardBtn = document.getElementById('viewCardBtn');
+    const viewTableBtn = document.getElementById('viewTableBtn');
 
     searchBox.addEventListener('input', filterDocuments);
     filterSelect. addEventListener('change', filterDocuments);
+    
+    viewCardBtn.addEventListener('click', () => switchView('card'));
+    viewTableBtn.addEventListener('click', () => switchView('table'));
 
     renderDocuments();
 }
 
+let currentView = 'card';
+let currentSortColumn = 'uploadDate';
+let currentSortOrder = 'desc';
+
+function switchView(view) {
+    currentView = view;
+    
+    // Update button states
+    document.getElementById('viewCardBtn').classList.toggle('active', view === 'card');
+    document.getElementById('viewTableBtn').classList.toggle('active', view === 'table');
+    
+    // Re-render documents
+    filterDocuments();
+}
+
 function filterDocuments() {
     const search = document.getElementById('docSearch').value. toLowerCase();
-    const filter = document.getElementById('docFilter'). value;
+    const filter = document.getElementById('docFilter').value;
 
     const filtered = dataManager.documents.filter(doc => {
         const matchesSearch = doc.name.toLowerCase().includes(search);
@@ -371,22 +391,36 @@ function filterDocuments() {
         return matchesSearch && matchesFilter;
     });
 
-    renderFilteredDocuments(filtered);
+    if (currentView === 'card') {
+        renderFilteredDocumentsAsCards(filtered);
+    } else {
+        renderFilteredDocumentsAsTable(filtered);
+    }
 }
 
 function renderDocuments() {
-    renderFilteredDocuments(dataManager.documents);
+    if (currentView === 'card') {
+        renderFilteredDocumentsAsCards(dataManager.documents);
+    } else {
+        renderFilteredDocumentsAsTable(dataManager.documents);
+    }
 }
 
-function renderFilteredDocuments(docs) {
+function renderFilteredDocumentsAsCards(docs) {
     const grid = document.getElementById('documentsList');
+    grid.className = 'documents-grid';
 
     if (docs.length === 0) {
         grid.innerHTML = '<p class="empty-message">No documents found.</p>';
         return;
     }
 
-    grid.innerHTML = docs.map(doc => `
+    // Sort documents by upload date (newest first)
+    const sorted = [... docs].sort((a, b) => 
+        new Date(b.uploadDate) - new Date(a. uploadDate)
+    );
+
+    grid.innerHTML = sorted.map(doc => `
         <div class="document-tile" onclick="viewDocument(${doc.id})">
             <div class="doc-thumbnail">
                 ${doc.thumbnail}
@@ -398,6 +432,127 @@ function renderFilteredDocuments(docs) {
             </div>
         </div>
     `).join('');
+}
+
+function renderFilteredDocumentsAsTable(docs) {
+    const grid = document.getElementById('documentsList');
+    grid. className = '';
+
+    if (docs.length === 0) {
+        grid. innerHTML = '<p class="empty-message">No documents found.</p>';
+        return;
+    }
+
+    // Sort documents based on current sort column
+    const sorted = [...docs].sort((a, b) => {
+        let aVal, bVal;
+
+        switch (currentSortColumn) {
+            case 'name':
+                aVal = a. name.toLowerCase();
+                bVal = b. name.toLowerCase();
+                break;
+            case 'type':
+                aVal = a.type. toLowerCase();
+                bVal = b.type.toLowerCase();
+                break;
+            case 'uploadDate':
+            default:
+                aVal = new Date(a.uploadDate);
+                bVal = new Date(b.uploadDate);
+        }
+
+        if (aVal < bVal) return currentSortOrder === 'asc' ? -1 : 1;
+        if (aVal > bVal) return currentSortOrder === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    const table = document.createElement('table');
+    table.className = 'documents-table';
+    
+    // Table header
+    const thead = document. createElement('thead');
+    const headerRow = document.createElement('tr');
+    
+    const headers = [
+        { label: '', width: '50px', sortCol: null },
+        { label: 'Document Name', sortCol: 'name' },
+        { label: 'Type', sortCol: 'type' },
+        { label: 'Upload Date', sortCol: 'uploadDate' }
+    ];
+    
+    headers.forEach(header => {
+        const th = document. createElement('th');
+        th. style.width = header.width || 'auto';
+        
+        if (header.sortCol) {
+            th.style.cursor = 'pointer';
+            th.innerHTML = header.label;
+            
+            if (currentSortColumn === header.sortCol) {
+                th.classList. add('sort-active', `sort-${currentSortOrder}`);
+            }
+            
+            th.addEventListener('click', () => {
+                if (currentSortColumn === header.sortCol) {
+                    currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = header.sortCol;
+                    currentSortOrder = 'desc';
+                }
+                filterDocuments();
+            });
+        } else {
+            th.innerHTML = header.label;
+        }
+        
+        headerRow.appendChild(th);
+    });
+    
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    // Table body
+    const tbody = document.createElement('tbody');
+    
+    sorted.forEach(doc => {
+        const row = document.createElement('tr');
+        
+        const cellThumbnail = document.createElement('td');
+        cellThumbnail.className = 'doc-table-thumbnail';
+        cellThumbnail.innerHTML = doc.thumbnail;
+        row.appendChild(cellThumbnail);
+        
+        const cellName = document.createElement('td');
+        cellName.className = 'doc-table-name';
+        cellName.textContent = doc. name;
+        cellName.onclick = (e) => {
+            e. stopPropagation();
+            viewDocument(doc.id);
+        };
+        row.appendChild(cellName);
+        
+        const cellType = document.createElement('td');
+        const typeSpan = document.createElement('span');
+        typeSpan. className = 'doc-table-type';
+        typeSpan. textContent = doc.type. toUpperCase();
+        cellType.appendChild(typeSpan);
+        row.appendChild(cellType);
+        
+        const cellDate = document.createElement('td');
+        cellDate.className = 'doc-table-date';
+        cellDate.textContent = formatDate(doc.uploadDate);
+        row.appendChild(cellDate);
+        
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', () => viewDocument(doc.id));
+        
+        tbody.appendChild(row);
+    });
+    
+    table. appendChild(tbody);
+    grid. innerHTML = '';
+    grid.appendChild(table);
 }
 
 function viewDocument(docId) {
