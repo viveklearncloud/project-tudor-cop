@@ -1,67 +1,11 @@
 [
     {
-        "id": 1,
-        "name": "Property Agreement",
-        "type": "legal",
-        "thumbnail": "📄",
-        "path": "documents/agreement.pdf",
-        "uploadDate": "2025-11-25"
-    },
-    {
-        "id": 2,
-        "name": "Layout Plan",
-        "type": "technical",
-        "thumbnail": "📐",
-        "path": "documents/layout.pdf",
-        "uploadDate": "2025-11-20"
-    },
-    {
-        "id": 3,
-        "name": "Payment Receipt",
-        "type": "financial",
-        "thumbnail": "💳",
-        "path": "documents/receipt.pdf",
-        "uploadDate": "2025-11-15"
-    },
-    {
         "id": 4,
         "name": "Casagrand Tudor Brochure",
         "type": "agreement",
         "thumbnail": "📑",
         "path": "documents/Casagrand Tudor Brochure.pdf",
         "uploadDate": "2020-01-01"
-    },
-    {
-        "id": 5,
-        "name": "Bank Approval Letter",
-        "type": "legal",
-        "thumbnail": "🏦",
-        "path": "documents/bank-approval.pdf",
-        "uploadDate": "2025-11-05"
-    },
-    {
-        "id": 6,
-        "name": "Title Deed Copy",
-        "type": "legal",
-        "thumbnail": "📋",
-        "path": "documents/title-deed. pdf",
-        "uploadDate": "2025-10-30"
-    },
-    {
-        "id": 7,
-        "name": "Floor Plan",
-        "type": "technical",
-        "thumbnail": "🏠",
-        "path": "documents/floor-plan.pdf",
-        "uploadDate": "2025-10-25"
-    },
-    {
-        "id": 8,
-        "name": "Payment Schedule",
-        "type": "financial",
-        "thumbnail": "📊",
-        "path": "documents/payment-schedule.pdf",
-        "uploadDate": "2025-10-20"
     },
     {
         "id": 9,
