@@ -25,12 +25,12 @@
         "with": "Owners & Casagrand Representatives",
         "date": "2025-06-28",
         "time": "11:00 AM",
-        "details": "Project Completion Timeline, Compliance & Regulatory Concerns & Other Pending and Day-to-Day Issues",
+        "details": "Project Completion Timeline, Compliance & Regulatory Concerns, Other Pending Amenities, Daily Issues & Security Concerns",
         "location": "Casagrand Office Premises (6th Floor - Conference Room) - Thiruvanmiyur",
         "linkedDocumentId": 12
     },
     {
-        "id": 8,
+        "id": 9,
         "title": "Casagrand & Owners Meeting (03-Jun-2025)",
         "with": "Owners & Casagrand Representatives",
         "date": "2025-06-03",
@@ -38,5 +38,15 @@
         "details": "Pending Constructional Issues, Compliance & Statuatory Concerns & Owners Meeting Date Fixation",
         "location": "Casagrand Office Premises (6th Floor - Conference Room) - Thiruvanmiyur",
         "linkedDocumentId": 13
+    },
+    {
+        "id": 10,
+        "title": "Casagrand & Owners Meeting (05-Jul-2025)",
+        "with": "Owners & Casagrand Representatives",
+        "date": "2025-07-05",
+        "time": "10:30 AM",
+        "details": "Project Completion Timeline, Pending Constructional Issues, Pending Amenities, Daily Issues & Security Concerns",
+        "location": "Tudor Premises - F Block Stilt Parking",
+        "linkedDocumentId": 14
     }
 ]
