@@ -58,5 +58,15 @@
         "details": "Daily Issues, Major Water related Topics & House Keeping Issues",
         "location": "Tudor Premises - F Block Stilt Parking",
         "linkedDocumentId": 15
+    },
+    {
+        "id": 12,
+        "title": "Casagrand & Owners Meeting (04-Mar-2025)",
+        "with": "Owners & Casagrand Representatives",
+        "date": "2025-03-04",
+        "time": "11:00 AM",
+        "details": "Project Status, Water Issues & Amenities Completion",
+        "location": "Casagrand Office Premises (6th Floor - Conference Room) - Thiruvanmiyur",
+        "linkedDocumentId": 16
     }
 ]
