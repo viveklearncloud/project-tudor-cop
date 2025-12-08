@@ -3,7 +3,7 @@ const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav-link');
 
-hamburger. addEventListener('click', () => {
+hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
@@ -13,10 +13,10 @@ navLinks.forEach(link => {
         e. preventDefault();
         
         // Remove active class from all links
-        navLinks.forEach(l => l. classList.remove('active'));
+        navLinks.forEach(l => l.classList.remove('active'));
         
         // Add active class to clicked link
-        link.classList.add('active');
+        link. classList.add('active');
         
         // Close menu
         hamburger.classList.remove('active');
@@ -33,8 +33,8 @@ function showSection(sectionId) {
     console.log('showSection called with:', sectionId);
     
     // Get all sections
-    const sections = document.querySelectorAll('.section');
-    console.log('Found sections:', sections. length);
+    const sections = document. querySelectorAll('. section');
+    console.log('Found sections:', sections.length);
     
     // Remove active from all
     sections.forEach(section => {
@@ -72,10 +72,10 @@ const dataManager = {
             }
             
             // Load meetings
-            const meetingResponse = await fetch('models/meetings. json');
+            const meetingResponse = await fetch('models/meetings.json');
             if (meetingResponse.ok) {
-                this.meetings = await meetingResponse. json();
-                console.log('Meetings loaded:', this.meetings. length);
+                this.meetings = await meetingResponse.json();
+                console.log('Meetings loaded:', this.meetings.length);
             }
             
             // Load documents
@@ -164,7 +164,7 @@ const dataManager = {
 
     addDocument(doc) {
         doc.id = Date.now();
-        this. documents.push(doc);
+        this.documents.push(doc);
         this.save();
     }
 };
@@ -172,7 +172,7 @@ const dataManager = {
 // Modal Management
 const modalManager = {
     openModal(modalId) {
-        document.getElementById(modalId).classList. add('active');
+        document.getElementById(modalId).classList.add('active');
     },
 
     closeModal(modalId) {
@@ -181,7 +181,7 @@ const modalManager = {
 
     setupCloseButtons() {
         const closeButtons = document.querySelectorAll('.close-modal');
-        closeButtons. forEach(btn => {
+        closeButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
                 this.closeModal(modal.id);
@@ -191,7 +191,7 @@ const modalManager = {
         // Close on outside click
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e. target === modal) {
+                if (e.target === modal) {
                     this. closeModal(modal.id);
                 }
             });
@@ -231,7 +231,7 @@ function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
     // Sort communications by date in descending order
-    const sortedComms = [...dataManager.communications].sort((a, b) => 
+    const sortedComms = [...dataManager.communications]. sort((a, b) => 
         new Date(b.date) - new Date(a.date)
     );
 
@@ -281,10 +281,10 @@ function setupMeetings() {
         e.preventDefault();
 
         const meeting = {
-            title: document. getElementById('meetingTitle').value,
-            with: document.getElementById('meetingWith').value,
-            date: document.getElementById('meetingDate').value,
-            time: document.getElementById('meetingTime'). value,
+            title: document.getElementById('meetingTitle').value,
+            with: document.getElementById('meetingWith'). value,
+            date: document. getElementById('meetingDate').value,
+            time: document.getElementById('meetingTime').value,
             details: document.getElementById('meetingDetails').value,
             location: document.getElementById('meetingLocation').value
         };
@@ -362,7 +362,7 @@ function renderFilteredDocuments(docs) {
     const grid = document.getElementById('documentsList');
 
     if (docs.length === 0) {
-        grid.innerHTML = '<p class="empty-message">No documents found. </p>';
+        grid.innerHTML = '<p class="empty-message">No documents found.</p>';
         return;
     }
 
@@ -382,7 +382,7 @@ function renderFilteredDocuments(docs) {
 
 function viewDocument(docId) {
     const doc = dataManager.documents.find(d => d.id === docId);
-    if (!doc) return;
+    if (! doc) return;
 
     document.getElementById('docViewerTitle').textContent = doc.name;
     document.getElementById('docViewerImg').src = doc.path;
@@ -435,7 +435,7 @@ function setupDashboardCards() {
                 
                 // Close menu
                 hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+                navMenu. classList.remove('active');
                 
                 // Show section
                 showSection(sectionId);
@@ -454,7 +454,7 @@ function setupBackButtons() {
     ];
 
     backButtons.forEach(btn => {
-        const backBtn = document.getElementById(btn. id);
+        const backBtn = document.getElementById(btn.id);
         if (backBtn) {
             backBtn.addEventListener('click', (e) => {
                 e. preventDefault();
@@ -494,7 +494,7 @@ function formatDate(dateString) {
 
 // Initialize App
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Initializing app.. .');
+    console.log('Initializing app...');
     
     // Wait for data to be loaded from JSON files
     await dataManager.init();
