@@ -755,12 +755,12 @@ body {
     border-bottom-color: var(--accent-color);
 }
 
-. about-tab-content {
+.about-tab-content {
     display: none;
     animation: slideIn 0.3s ease;
 }
 
-. about-tab-content.active {
+.about-tab-content.active {
     display: block;
 }
 
@@ -770,6 +770,8 @@ body {
     border-radius: 8px;
     box-shadow: var(--shadow);
     max-width: 900px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .about-content h2 {
@@ -800,7 +802,7 @@ body {
     text-decoration: underline;
 }
 
-.rera-section {
+. rera-section {
     background-color: var(--light-bg);
     padding: 1.5rem;
     border-left: 4px solid var(--accent-color);
@@ -830,10 +832,12 @@ body {
 
 .amenity-category {
     background-color: var(--light-bg);
-    padding: 0.75rem 1rem;
+    padding: 0. 75rem 1rem;
     border-radius: 4px;
     margin-top: 1. 5rem;
     margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
 }
 
 @media (max-width: 768px) {

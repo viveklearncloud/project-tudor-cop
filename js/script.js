@@ -480,14 +480,15 @@ function setupBackButtons() {
 
 // About Page Tabs
 function setupAboutTabs() {
-    const tabButtons = document.querySelectorAll('.about-tab-btn');
+    const tabButtons = document.querySelectorAll('. about-tab-btn');
     const tabContents = document.querySelectorAll('.about-tab-content');
 
     tabButtons.forEach(btn => {
         btn. addEventListener('click', (e) => {
-            e. preventDefault();
+            e.preventDefault();
             
             const tabName = btn.getAttribute('data-tab');
+            console.log('Tab clicked:', tabName);
             
             // Remove active class from all buttons and contents
             tabButtons.forEach(b => b.classList.remove('active'));
@@ -495,7 +496,13 @@ function setupAboutTabs() {
             
             // Add active class to clicked button and corresponding content
             btn.classList.add('active');
-            document.getElementById(tabName).classList. add('active');
+            const targetContent = document.getElementById(tabName);
+            if (targetContent) {
+                targetContent.classList.add('active');
+                console.log('Activated:', tabName);
+            } else {
+                console.error('Tab content not found:', tabName);
+            }
         });
     });
 }
