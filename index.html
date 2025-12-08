@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casagrand Tudor - Owners & Buyers</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header with Hamburger Menu -->
+    <header class="header">
+        <div class="logo">
+            <img src="images/logo.png" alt="Casagrand Tudor Logo" class="logo-img">
+            <span class="brand-name">Casagrand Tudor - Owners & Buyers</span>
+        </div>
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+        <ul class="nav-list">
+            <li><a href="#" data-section="dashboard" class="nav-link active">Dashboard</a></li>
+            <li><a href="#" data-section="communications" class="nav-link">Communications</a></li>
+            <li><a href="#" data-section="meetings" class="nav-link">Meetings</a></li>
+            <li><a href="#" data-section="documents" class="nav-link">Documents</a></li>
+            <li><a href="#" data-section="about" class="nav-link">About</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section active">
+            <div class="section-header">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-icon">📞</div>
+                    <div class="card-content">
+                        <h3>Communications</h3>
+                        <p>Track all your interactions</p>
+                    </div>
+                    <span class="card-count" id="comm-count">0</span>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">📅</div>
+                    <div class="card-content">
+                        <h3>Meetings</h3>
+                        <p>View scheduled meetings</p>
+                    </div>
+                    <span class="card-count" id="meeting-count">0</span>
+                </div>
+                <div class="dashboard-card">
+                    <div class="card-icon">📄</div>
+                    <div class="card-content">
+                        <h3>Documents</h3>
+                        <p>Access important files</p>
+                    </div>
+                    <span class="card-count" id="doc-count">0</span>
+                </div>
+            </div>
+            <div class="quick-stats">
+                <h2>Quick Statistics</h2>
+                <div class="stats-container">
+                    <div class="stat">
+                        <span class="stat-label">Total Communications:</span>
+                        <span class="stat-value" id="total-comm">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Total Meetings:</span>
+                        <span class="stat-value" id="total-meet">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Total Documents:</span>
+                        <span class="stat-value" id="total-docs">0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communications Section -->
+        <section id="communications" class="section">
+            <div class="section-header">
+                <h1>Communications</h1>
+                <button class="btn-add" id="addCommBtn">+ Add Communication</button>
+            </div>
+            <div id="communicationsList" class="list-container">
+                <p class="empty-message">No communications yet.  Add one to get started!</p>
+            </div>
+        </section>
+
+        <!-- Meetings Section -->
+        <section id="meetings" class="section">
+            <div class="section-header">
+                <h1>Meetings & Interactions</h1>
+                <button class="btn-add" id="addMeetingBtn">+ Add Meeting</button>
+            </div>
+            <div id="meetingsList" class="timeline-container">
+                <p class="empty-message">No meetings scheduled yet. Add one to get started!</p>
+            </div>
+        </section>
+
+        <!-- Documents Section -->
+        <section id="documents" class="section">
+            <div class="section-header">
+                <h1>Documents</h1>
+            </div>
+            <div class="document-filters">
+                <input type="text" id="docSearch" placeholder="Search documents..." class="search-box">
+                <select id="docFilter" class="filter-select">
+                    <option value="">All Types</option>
+                    <option value="legal">Legal</option>
+                    <option value="financial">Financial</option>
+                    <option value="technical">Technical</option>
+                    <option value="agreement">Agreement</option>
+                </select>
+            </div>
+            <div id="documentsList" class="documents-grid">
+                <p class="empty-message">No documents available. </p>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="section-header">
+                <h1>About Casagrand Tudor</h1>
+            </div>
+            <div class="about-content">
+                <h2>Welcome to Your Property Management Hub</h2>
+                <p>Casagrand Tudor - Owners & Buyers is your comprehensive platform for managing all aspects of your property purchase journey. </p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li><strong>Communications:</strong> Keep track of all your interactions with builders and agents</li>
+                    <li><strong>Meetings:</strong> View all meetings in a timeline format for easy reference</li>
+                    <li><strong>Documents:</strong> Centralized storage for all important documents with easy access</li>
+                    <li><strong>Organization:</strong> Everything neatly organized for quick access</li>
+                </ul>
+                
+                <h3>How to Use</h3>
+                <ol>
+                    <li>Use the hamburger menu to navigate between sections</li>
+                    <li>Add communications, meetings, and documents as needed</li>
+                    <li>View documents by clicking on their thumbnails</li>
+                    <li>Track all interactions in one place</li>
+                </ol>
+
+                <div class="about-footer">
+                    <p><strong>Version:</strong> 1.0. 0</p>
+                    <p><strong>Last Updated:</strong> December 2025</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Adding Communication -->
+    <div id="commModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add Communication</h2>
+            <form id="commForm">
+                <input type="text" placeholder="Contact Name" id="commName" required>
+                <select id="commType" required>
+                    <option value="">Select Type</option>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone Call</option>
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="in-person">In-Person</option>
+                </select>
+                <textarea placeholder="Communication Details" id="commDetails" rows="4" required></textarea>
+                <input type="date" id="commDate" required>
+                <button type="submit" class="btn-submit">Add Communication</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Meeting -->
+    <div id="meetingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add Meeting</h2>
+            <form id="meetingForm">
+                <input type="text" placeholder="Meeting Title" id="meetingTitle" required>
+                <input type="text" placeholder="With (Name/Department)" id="meetingWith" required>
+                <input type="date" id="meetingDate" required>
+                <input type="time" id="meetingTime" required>
+                <textarea placeholder="Meeting Details/Notes" id="meetingDetails" rows="4" required></textarea>
+                <input type="text" placeholder="Location" id="meetingLocation">
+                <button type="submit" class="btn-submit">Add Meeting</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Document Viewer Modal -->
+    <div id="docModal" class="modal">
+        <div class="modal-content modal-doc-viewer">
+            <span class="close-modal">&times;</span>
+            <h2 id="docViewerTitle">Document Viewer</h2>
+            <div class="doc-viewer">
+                <img id="docViewerImg" src="" alt="Document">
+            </div>
+            <button class="btn-download" id="docDownloadBtn">Download</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
