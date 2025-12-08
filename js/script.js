@@ -33,7 +33,7 @@ function showSection(sectionId) {
     console.log('showSection called with:', sectionId);
     
     // Get all sections
-    const sections = document. querySelectorAll('. section');
+    const sections = document. querySelectorAll('.section');
     console.log('Found sections:', sections.length);
     
     // Remove active from all
