@@ -233,12 +233,12 @@ function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
     // Sort communications by date in descending order
-    const sortedComms = [...dataManager.communications]. sort((a, b) => 
+    const sortedComms = [... dataManager.communications].sort((a, b) => 
         new Date(b.date) - new Date(a.date)
     );
 
     if (sortedComms.length === 0) {
-        list. innerHTML = '<p class="empty-message">No communications yet.  Add one to get started!</p>';
+        list. innerHTML = '<p class="empty-message">No communications yet.    Add one to get started!</p>';
         return;
     }
 
@@ -252,20 +252,67 @@ function renderCommunications() {
 
     list.innerHTML = `
         <div class="timeline-container">
-            ${sortedComms.map((comm, index) => `
-                <div class="timeline-item">
-                    <div class="timeline-marker">${iconMap[comm.type] || '📞'}</div>
-                    <div class="timeline-content">
-                        <h3>${comm. name}</h3>
-                        <p><strong>Type:</strong> ${comm.type. charAt(0).toUpperCase() + comm.type.slice(1). replace('-', ' ')}</p>
-                        <p><strong>Details:</strong> ${comm.details}</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-date">${formatDate(comm.date)}</span>
-                            <span class="timeline-type">${comm.type. toUpperCase()}</span>
+            ${sortedComms.map((comm, index) => {
+                // Find linked document
+                const linkedDoc = comm.linkedDocumentId ?  
+                    dataManager.documents.find(d => d.id === comm.linkedDocumentId) : null;
+                
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-marker">${iconMap[comm.type] || '📞'}</div>
+                        <div class="timeline-content">
+                            <h3>${comm. name}</h3>
+                            <p><strong>Type:</strong> ${comm.type. charAt(0).toUpperCase() + comm.type.slice(1). replace('-', ' ')}</p>
+                            <p><strong>Details:</strong> ${comm.details}</p>
+                            <div class="timeline-meta">
+                                <span class="timeline-date">${formatDate(comm.date)}</span>
+                                <span class="timeline-type">${comm.type. toUpperCase()}</span>
+                                ${linkedDoc ? `<button class="btn-view-doc" onclick="viewDocument(${linkedDoc.id})">📄 View Document</button>` : ''}
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('')}
+                `;
+            }).join('')}
+        </div>
+    `;
+}
+
+function renderMeetings() {
+    const list = document.getElementById('meetingsList');
+    
+    // Sort meetings by date in descending order
+    const sortedMeetings = [...dataManager.meetings].sort((a, b) => 
+        new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`)
+    );
+
+    if (sortedMeetings.length === 0) {
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.  Add one to get started!</p>';
+        return;
+    }
+
+    list.innerHTML = `
+        <div class="timeline-container">
+            ${sortedMeetings.map((meeting, index) => {
+                // Find linked document
+                const linkedDoc = meeting.linkedDocumentId ? 
+                    dataManager.documents.find(d => d.id === meeting.linkedDocumentId) : null;
+                
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-marker">📅</div>
+                        <div class="timeline-content">
+                            <h3>${meeting. title}</h3>
+                            <p><strong>With:</strong> ${meeting.with}</p>
+                            <p><strong>Details:</strong> ${meeting.details}</p>
+                            <div class="timeline-meta">
+                                <span class="timeline-date">${formatDate(meeting.date)} at ${meeting.time}</span>
+                                ${meeting.location ? `<span class="timeline-location">📍 ${meeting.location}</span>` : ''}
+                                ${linkedDoc ? `<button class="btn-view-doc" onclick="viewDocument(${linkedDoc. id})">📄 View Document</button>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }). join('')}
         </div>
     `;
 }
@@ -299,39 +346,6 @@ function setupMeetings() {
         renderMeetings();
         updateDashboard();
     });
-}
-
-function renderMeetings() {
-    const list = document.getElementById('meetingsList');
-    
-    // Sort meetings by date in descending order
-    const sortedMeetings = [...dataManager.meetings].sort((a, b) => 
-        new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`)
-    );
-
-    if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet. Add one to get started!</p>';
-        return;
-    }
-
-    list.innerHTML = `
-        <div class="timeline-container">
-            ${sortedMeetings.map((meeting, index) => `
-                <div class="timeline-item">
-                    <div class="timeline-marker">📅</div>
-                    <div class="timeline-content">
-                        <h3>${meeting. title}</h3>
-                        <p><strong>With:</strong> ${meeting.with}</p>
-                        <p><strong>Details:</strong> ${meeting.details}</p>
-                        <div class="timeline-meta">
-                            <span class="timeline-date">${formatDate(meeting.date)} at ${meeting.time}</span>
-                            ${meeting.location ? `<span class="timeline-location">📍 ${meeting.location}</span>` : ''}
-                        </div>
-                    </div>
-                </div>
-            `).join('')}
-        </div>
-    `;
 }
 
 // Document Management

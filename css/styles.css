@@ -840,6 +840,30 @@ body {
     color: var(--primary-color);
 }
 
+/* Document Viewer Button in Timeline */
+.btn-view-doc {
+    background-color: var(--accent-color);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-view-doc:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+. btn-view-doc:active {
+    transform: translateY(0);
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 1rem;

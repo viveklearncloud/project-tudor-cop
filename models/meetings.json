@@ -6,7 +6,8 @@
         "date": "2025-12-10",
         "time": "10:00",
         "details": "Complete inspection of property and surrounding amenities",
-        "location": "Casagrand Tudor, Mumbai"
+        "location": "Casagrand Tudor, Mumbai",
+        "linkedDocumentId": null
     },
     {
         "id": 2,
@@ -15,7 +16,8 @@
         "date": "2025-12-08",
         "time": "14:00",
         "details": "Review of all purchase documents and agreement clauses",
-        "location": "Legal Office"
+        "location": "Legal Office",
+        "linkedDocumentId": null
     },
     {
         "id": 3,
@@ -24,7 +26,8 @@
         "date": "2025-12-05",
         "time": "11:30",
         "details": "Final payment plan confirmation and mode of payment",
-        "location": "Sales Office"
+        "location": "Sales Office",
+        "linkedDocumentId": null
     },
     {
         "id": 4,
@@ -33,7 +36,8 @@
         "date": "2025-12-15",
         "time": "09:00",
         "details": "Final walkthrough and possession document signing",
-        "location": "Casagrand Tudor, Mumbai"
+        "location": "Casagrand Tudor, Mumbai",
+        "linkedDocumentId": null
     },
     {
         "id": 5,
@@ -42,7 +46,8 @@
         "date": "2025-11-30",
         "time": "15:30",
         "details": "Home insurance coverage options and premiums",
-        "location": "Bank Branch"
+        "location": "Bank Branch",
+        "linkedDocumentId": null
     },
     {
         "id": 6,
@@ -51,7 +56,8 @@
         "date": "2025-11-23",
         "time": "10:30 AM",
         "details": "IFM Discussion & Ground-Level Assessment Presentation",
-        "location": "Tudor Premises - F Block Stilt Parking"
+        "location": "Tudor Premises - F Block Stilt Parking",
+        "linkedDocumentId": 11
     },
     {
         "id": 7,
@@ -60,6 +66,7 @@
         "date": "2025-09-20",
         "time": "10:00 AM & 2:00 PM",
         "details": "Project Completion Timeline, Compliance & Regulatory Concerns & IFM and Prepaid Maintenance Discussion",
-        "location": "Tudor Premises - F Block Stilt Parking"
+        "location": "Tudor Premises - F Block Stilt Parking",
+        "linkedDocumentId": 9
     }
 ]
