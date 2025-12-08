@@ -68,5 +68,15 @@
         "details": "Project Status, Water Issues & Amenities Completion",
         "location": "Casagrand Office Premises (6th Floor - Conference Room) - Thiruvanmiyur",
         "linkedDocumentId": 16
+    },
+    {
+        "id": 13,
+        "title": "Casagrand & Owners Meeting (01-Feb-2025)",
+        "with": "Owners & Casagrand Representatives",
+        "date": "2025-02-01",
+        "time": "10:00 AM",
+        "details": "Project Status, Water Update & Daily Issues",
+        "location": "Tudor Premises - F Block Stilt Parking",
+        "linkedDocumentId": 17
     }
 ]
