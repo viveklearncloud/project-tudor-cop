@@ -44,7 +44,7 @@
         "name": "Title Deed Copy",
         "type": "legal",
         "thumbnail": "📋",
-        "path": "documents/title-deed.pdf",
+        "path": "documents/title-deed. pdf",
         "uploadDate": "2025-10-30"
     },
     {
@@ -64,11 +64,11 @@
         "uploadDate": "2025-10-20"
     },
     {
-        "id": 8,
+        "id": 9,
         "name": "20-Sep-2025 - Minutes of Meeting - CG & Owners",
         "type": "mom",
-        "thumbnail": "📊",
-        "path": "documents/payment-schedule.pdf",
-        "uploadDate": "2025-10-20"
+        "thumbnail": "📝",
+        "path": "documents/20-Sep-2025 - Minutes of Meeting - CG & Owners.pdf",
+        "uploadDate": "2025-09-20"
     }
 ]
