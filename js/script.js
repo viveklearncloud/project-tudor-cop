@@ -423,7 +423,7 @@ function viewDocument(docId) {
     const isWord = ['doc', 'docx']. includes(fileExtension);
     
     // Get the viewer container
-    const docViewerContainer = document.querySelector('. doc-viewer');
+    const docViewerContainer = document.querySelector('.doc-viewer');
     if (!docViewerContainer) {
         console.error('Doc viewer container not found');
         return;
