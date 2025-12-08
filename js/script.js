@@ -402,9 +402,16 @@ function renderFilteredDocuments(docs) {
 
 function viewDocument(docId) {
     const doc = dataManager.documents.find(d => d.id === docId);
-    if (!doc) return;
+    if (!doc) {
+        console.error('Document not found:', docId);
+        return;
+    }
 
-    document.getElementById('docViewerTitle').textContent = doc.name;
+    // Check if title element exists
+    const titleElement = document.getElementById('docViewerTitle');
+    if (titleElement) {
+        titleElement.textContent = doc.name;
+    }
     
     // Get file extension
     const fileExtension = doc.path.split('.').pop().toLowerCase();
@@ -413,13 +420,17 @@ function viewDocument(docId) {
     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(fileExtension);
     const isPdf = fileExtension === 'pdf';
     const isExcel = ['xls', 'xlsx', 'xlsm'].includes(fileExtension);
-    const isWord = ['doc', 'docx']. includes(fileExtension);
+    const isWord = ['doc', 'docx'].includes(fileExtension);
     
-    const docViewer = document.getElementById('docViewerFrame');
-    const docViewerContainer = docViewer.parentElement;
+    // Get the viewer container
+    const docViewerContainer = document.querySelector('.doc-viewer');
+    if (!docViewerContainer) {
+        console.error('Doc viewer container not found');
+        return;
+    }
     
     // Clear previous content
-    docViewerContainer.innerHTML = '';
+    docViewerContainer. innerHTML = '';
     
     // Create appropriate viewer based on file type
     if (isImage) {
@@ -428,37 +439,50 @@ function viewDocument(docId) {
         img.alt = doc.name;
         img.style.cssText = 'max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px;';
         docViewerContainer. appendChild(img);
+        console.log('Image viewer created for:', doc.name);
     } else if (isPdf) {
         const iframe = document.createElement('iframe');
         iframe.src = doc.path;
         iframe.type = 'application/pdf';
         iframe.style.cssText = 'width: 100%; height: 500px; border: none; border-radius: 8px;';
         docViewerContainer.appendChild(iframe);
+        console.log('PDF viewer created for:', doc.name);
     } else if (isExcel) {
         const iframe = document.createElement('iframe');
-        iframe.src = `https://view.officeapps.live. com/op/embed. aspx?src=${encodeURIComponent(window.location.origin + '/' + doc.path)}`;
+        const encodedPath = encodeURIComponent(window.location.origin + '/' + doc.path);
+        iframe.src = `https://view.officeapps.live. com/op/embed.aspx?src=${encodedPath}`;
         iframe.style.cssText = 'width: 100%; height: 600px; border: none; border-radius: 8px;';
         docViewerContainer.appendChild(iframe);
+        console.log('Excel viewer created for:', doc.name);
     } else if (isWord) {
         const iframe = document.createElement('iframe');
-        iframe.src = `https://view.officeapps.live. com/op/embed.aspx?src=${encodeURIComponent(window.location.origin + '/' + doc.path)}`;
+        const encodedPath = encodeURIComponent(window.location.origin + '/' + doc.path);
+        iframe.src = `https://view.officeapps.live.com/op/embed.aspx?src=${encodedPath}`;
         iframe.style.cssText = 'width: 100%; height: 600px; border: none; border-radius: 8px;';
         docViewerContainer.appendChild(iframe);
+        console.log('Word viewer created for:', doc.name);
     } else {
         // Fallback for unknown types
         const p = document.createElement('p');
         p.style.cssText = 'text-align: center; padding: 2rem; color: #7f8c8d;';
-        p.innerHTML = `<strong>Preview not available for . ${fileExtension} files</strong><br><br>Use the Download button to view this file.`;
-        docViewerContainer.appendChild(p);
+        p.innerHTML = `<strong>Preview not available for . ${fileExtension} files</strong><br><br>Use the Download button to view this file. `;
+        docViewerContainer. appendChild(p);
+        console. log('Unsupported file type:', fileExtension);
     }
     
     // Setup download button
-    document.getElementById('docDownloadBtn').onclick = () => downloadDocument(doc. path, doc.name);
+    const downloadBtn = document.getElementById('docDownloadBtn');
+    if (downloadBtn) {
+        downloadBtn.onclick = () => downloadDocument(doc. path, doc.name);
+    }
     
     // Setup open in new tab button
-    document. getElementById('docOpenNewBtn').onclick = () => {
-        window.open(doc.path, '_blank');
-    };
+    const openNewBtn = document.getElementById('docOpenNewBtn');
+    if (openNewBtn) {
+        openNewBtn.onclick = () => {
+            window.open(doc.path, '_blank');
+        };
+    }
 
     modalManager.openModal('docModal');
 }
