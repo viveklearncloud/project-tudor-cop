@@ -142,5 +142,13 @@
         "thumbnail": "📝",
         "path": "documents/16-Nov-2024 - Minutes of Meeting - CG & Owners.pdf",
         "uploadDate": "2024-11-16"
+    },
+    {
+        "id": 19,
+        "name": "Notice for Action from Casagrand Tudor Owners",
+        "type": "legal",
+        "thumbnail": "📄",
+        "path": "documents/Notice for Action from Casagrand Tudor Owners.pdf",
+        "uploadDate": "2025-07-17"
     }
 ]
