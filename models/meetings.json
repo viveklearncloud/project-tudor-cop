@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "title": "Site Inspection",
+        "with": "Project Manager",
+        "date": "2025-12-10",
+        "time": "10:00",
+        "details": "Complete inspection of property and surrounding amenities",
+        "location": "Casagrand Tudor, Mumbai"
+    },
+    {
+        "id": 2,
+        "title": "Documentation Review",
+        "with": "Legal Advisor",
+        "date": "2025-12-08",
+        "time": "14:00",
+        "details": "Review of all purchase documents and agreement clauses",
+        "location": "Legal Office"
+    },
+    {
+        "id": 3,
+        "title": "Payment Discussion",
+        "with": "Finance Team",
+        "date": "2025-12-05",
+        "time": "11:30",
+        "details": "Final payment plan confirmation and mode of payment",
+        "location": "Sales Office"
+    },
+    {
+        "id": 4,
+        "title": "Possession Handover Meeting",
+        "with": "Project Completion Manager",
+        "date": "2025-12-15",
+        "time": "09:00",
+        "details": "Final walkthrough and possession document signing",
+        "location": "Casagrand Tudor, Mumbai"
+    },
+    {
+        "id": 5,
+        "title": "Insurance Discussion",
+        "with": "Insurance Advisor",
+        "date": "2025-11-30",
+        "time": "15:30",
+        "details": "Home insurance coverage options and premiums",
+        "location": "Bank Branch"
+    }
+]

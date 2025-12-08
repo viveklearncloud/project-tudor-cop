@@ -54,25 +54,61 @@ function showSection(sectionId) {
     updateDashboard();
 }
 
-// Data Management (LocalStorage)
+// Data Manager - LOADS FROM JSON FILES
 const dataManager = {
     communications: [],
     meetings: [],
     documents: [],
 
-    init() {
-        const stored = localStorage.getItem('hbTrackerData');
-        if (stored) {
-            const data = JSON.parse(stored);
-            this.communications = data. communications || [];
-            this.meetings = data.meetings || [];
-            this.documents = data.documents || [];
-        } else {
-            this.loadSampleData();
+    async init() {
+        try {
+            console.log('Loading data from JSON files...');
+            
+            // Load communications
+            const commResponse = await fetch('models/communications. json');
+            if (commResponse.ok) {
+                this.communications = await commResponse.json();
+                console.log('Communications loaded:', this.communications. length);
+            }
+            
+            // Load meetings
+            const meetingResponse = await fetch('models/meetings.json');
+            if (meetingResponse.ok) {
+                this.meetings = await meetingResponse.json();
+                console.log('Meetings loaded:', this.meetings.length);
+            }
+            
+            // Load documents
+            const docResponse = await fetch('models/documents.json');
+            if (docResponse.ok) {
+                this.documents = await docResponse.json();
+                console.log('Documents loaded:', this.documents.length);
+            }
+            
+            // Check localStorage for any user-added data
+            const stored = localStorage.getItem('hbTrackerData');
+            if (stored) {
+                const data = JSON.parse(stored);
+                if (data.communications && data.communications.length > 0) {
+                    this.communications = [... this.communications, ...data.communications];
+                }
+                if (data.meetings && data.meetings. length > 0) {
+                    this.meetings = [...this. meetings, ...data.meetings];
+                }
+                if (data. documents && data.documents.length > 0) {
+                    this.documents = [...this.documents, ...data.documents];
+                }
+            }
+            
+        } catch (error) {
+            console.error('Error loading JSON files:', error);
+            console.log('Using default data...');
+            this.loadDefaultData();
         }
     },
 
-    loadSampleData() {
+    loadDefaultData() {
+        // Fallback data if JSON files fail to load
         this.communications = [
             {
                 id: 1,
@@ -80,23 +116,8 @@ const dataManager = {
                 type: 'email',
                 details: 'Received payment schedule and project timeline update',
                 date: '2025-12-05'
-            },
-            {
-                id: 2,
-                name: 'Priya Sharma',
-                type: 'phone',
-                details: 'Discussed possession timeline and final documentation',
-                date: '2025-12-03'
-            },
-            {
-                id: 3,
-                name: 'Amit Patel',
-                type: 'whatsapp',
-                details: 'Site visit confirmation for next week',
-                date: '2025-12-01'
             }
         ];
-
         this.meetings = [
             {
                 id: 1,
@@ -106,27 +127,8 @@ const dataManager = {
                 time: '10:00',
                 details: 'Complete inspection of property and surrounding amenities',
                 location: 'Casagrand Tudor, Mumbai'
-            },
-            {
-                id: 2,
-                title: 'Documentation Review',
-                with: 'Legal Advisor',
-                date: '2025-12-08',
-                time: '14:00',
-                details: 'Review of all purchase documents and agreement clauses',
-                location: 'Legal Office'
-            },
-            {
-                id: 3,
-                title: 'Payment Discussion',
-                with: 'Finance Team',
-                date: '2025-12-05',
-                time: '11:30',
-                details: 'Final payment plan confirmation and mode of payment',
-                location: 'Sales Office'
             }
         ];
-
         this.documents = [
             {
                 id: 1,
@@ -135,34 +137,8 @@ const dataManager = {
                 thumbnail: '📄',
                 path: 'documents/agreement.pdf',
                 uploadDate: '2025-11-25'
-            },
-            {
-                id: 2,
-                name: 'Layout Plan',
-                type: 'technical',
-                thumbnail: '📐',
-                path: 'documents/layout.pdf',
-                uploadDate: '2025-11-20'
-            },
-            {
-                id: 3,
-                name: 'Payment Receipt',
-                type: 'financial',
-                thumbnail: '💳',
-                path: 'documents/receipt.pdf',
-                uploadDate: '2025-11-15'
-            },
-            {
-                id: 4,
-                name: 'Project Brochure',
-                type: 'agreement',
-                thumbnail: '📑',
-                path: 'documents/brochure.pdf',
-                uploadDate: '2025-11-10'
             }
         ];
-
-        this.save();
     },
 
     save() {
@@ -188,7 +164,7 @@ const dataManager = {
 
     addDocument(doc) {
         doc.id = Date.now();
-        this. documents.push(doc);
+        this.documents.push(doc);
         this.save();
     }
 };
@@ -205,7 +181,7 @@ const modalManager = {
 
     setupCloseButtons() {
         const closeButtons = document.querySelectorAll('.close-modal');
-        closeButtons.forEach(btn => {
+        closeButtons. forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
                 this.closeModal(modal.id);
@@ -215,7 +191,7 @@ const modalManager = {
         // Close on outside click
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
+                if (e. target === modal) {
                     this. closeModal(modal.id);
                 }
             });
@@ -238,8 +214,8 @@ function setupCommunications() {
         const communication = {
             name: document.getElementById('commName').value,
             type: document.getElementById('commType').value,
-            details: document.getElementById('commDetails').value,
-            date: document.getElementById('commDate').value
+            details: document.getElementById('commDetails'). value,
+            date: document. getElementById('commDate').value
         };
 
         dataManager.addCommunication(communication);
@@ -253,7 +229,7 @@ function setupCommunications() {
 function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
-    if (dataManager.communications.length === 0) {
+    if (dataManager.communications. length === 0) {
         list.innerHTML = '<p class="empty-message">No communications yet.  Add one to get started!</p>';
         return;
     }
@@ -303,12 +279,12 @@ function renderMeetings() {
     const list = document.getElementById('meetingsList');
     
     // Sort meetings by date in descending order
-    const sortedMeetings = [... dataManager.meetings].sort((a, b) => 
+    const sortedMeetings = [...dataManager.meetings].sort((a, b) => 
         new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`)
     );
 
     if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.  Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet. Add one to get started!</p>';
         return;
     }
 
@@ -369,7 +345,7 @@ function renderFilteredDocuments(docs) {
     }
 
     grid.innerHTML = docs.map(doc => `
-        <div class="document-tile" onclick="viewDocument(${doc.id})">
+        <div class="document-tile" onclick="viewDocument(${doc. id})">
             <div class="doc-thumbnail">
                 ${doc.thumbnail}
             </div>
@@ -384,7 +360,7 @@ function renderFilteredDocuments(docs) {
 
 function viewDocument(docId) {
     const doc = dataManager.documents.find(d => d.id === docId);
-    if (!doc) return;
+    if (! doc) return;
 
     document.getElementById('docViewerTitle').textContent = doc.name;
     document.getElementById('docViewerImg').src = doc.path;
@@ -437,7 +413,7 @@ function setupDashboardCards() {
                 
                 // Close menu
                 hamburger.classList.remove('active');
-                navMenu. classList.remove('active');
+                navMenu.classList.remove('active');
                 
                 // Show section
                 showSection(sectionId);
@@ -463,11 +439,13 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-US', options);
 }
 
-// Initialize App
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize App - UPDATED TO USE ASYNC
+document.addEventListener('DOMContentLoaded', async () => {
     console.log('Initializing app...');
     
-    dataManager.init();
+    // Wait for data to be loaded from JSON files
+    await dataManager.init();
+    
     modalManager.setupCloseButtons();
     setupCommunications();
     setupMeetings();
@@ -478,4 +456,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCommunications();
     renderMeetings();
     renderDocuments();
+    
+    console.log('App initialization complete!');
 });
