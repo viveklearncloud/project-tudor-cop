@@ -864,6 +864,37 @@ body {
     transform: translateY(0);
 }
 
+/* Excel Viewer Styling */
+.doc-viewer table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    background-color: white;
+}
+
+.doc-viewer table td,
+.doc-viewer table th {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    word-break: break-word;
+}
+
+.doc-viewer table th {
+    background-color: #3498db;
+    color: white;
+    font-weight: 600;
+}
+
+.doc-viewer table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.doc-viewer table tr:hover {
+    background-color: #ecf0f1;
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 1rem;

@@ -402,8 +402,8 @@ function renderFilteredDocuments(docs) {
 
 function viewDocument(docId) {
     const doc = dataManager.documents.find(d => d.id === docId);
-    if (!doc) {
-        console. error('Document not found:', docId);
+    if (! doc) {
+        console.error('Document not found:', docId);
         return;
     }
 
@@ -414,7 +414,7 @@ function viewDocument(docId) {
     }
     
     // Get file extension
-    const fileExtension = doc. path.split('.').pop().toLowerCase();
+    const fileExtension = doc.path.split('.').pop().toLowerCase();
     
     // Determine viewer type based on file extension
     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(fileExtension);
@@ -423,14 +423,14 @@ function viewDocument(docId) {
     const isWord = ['doc', 'docx']. includes(fileExtension);
     
     // Get the viewer container
-    const docViewerContainer = document.querySelector('.doc-viewer');
+    const docViewerContainer = document.querySelector('. doc-viewer');
     if (!docViewerContainer) {
         console.error('Doc viewer container not found');
         return;
     }
     
     // Clear previous content
-    docViewerContainer.  innerHTML = '';
+    docViewerContainer.innerHTML = '';
     
     // Create appropriate viewer based on file type
     if (isImage) {
@@ -438,7 +438,7 @@ function viewDocument(docId) {
         img.src = doc.path;
         img.alt = doc.name;
         img.style.cssText = 'max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px;';
-        docViewerContainer.  appendChild(img);
+        docViewerContainer. appendChild(img);
         console.log('Image viewer created for:', doc.name);
     } else if (isPdf) {
         const iframe = document.createElement('iframe');
@@ -448,52 +448,91 @@ function viewDocument(docId) {
         docViewerContainer. appendChild(iframe);
         console. log('PDF viewer created for:', doc.name);
     } else if (isExcel) {
-        // Use Google Sheets viewer for Excel files
-        const encodedPath = encodeURIComponent(doc.path);
-        const iframe = document.createElement('iframe');
-        iframe.src = `https://docs.google.com/gviz/tq?tqx=out:html&tq=&gid=0&url=${encodedPath}`;
-        iframe.style.cssText = 'width: 100%; height: 600px; border: none; border-radius: 8px;';
-        
-        // Fallback container for better UX
-        const container = document.createElement('div');
-        container.style.cssText = 'background-color: #f5f5f5; padding: 1rem; border-radius: 8px; text-align: center;';
-        
-        const message = document.createElement('p');
-        message.style.cssText = 'color: #7f8c8d; margin-bottom: 1rem;';
-        message.innerHTML = `<strong>${fileExtension.toUpperCase()} File Preview</strong><br>Use the Download or Open in New Tab buttons to view this spreadsheet.`;
-        
-        container.appendChild(message);
-        docViewerContainer.  appendChild(container);
-        console. log('Excel viewer note created for:', doc.name);
+        // Show loading message
+        const loadingMsg = document.createElement('p');
+        loadingMsg.style.cssText = 'text-align: center; padding: 2rem; color: #7f8c8d;';
+        loadingMsg.innerHTML = '<strong>Loading spreadsheet...</strong>';
+        docViewerContainer.appendChild(loadingMsg);
+
+        // Read and display Excel file
+        fetch(doc.path)
+            .then(res => res. arrayBuffer())
+            .then(data => {
+                try {
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    const worksheet = workbook. Sheets[workbook.SheetNames[0]];
+                    const html = XLSX.utils. sheet_to_html(worksheet);
+                    
+                    const container = document.createElement('div');
+                    container.style.cssText = 'overflow-x: auto; max-height: 600px; overflow-y: auto; background-color: #f9f9f9; border-radius: 8px; padding: 1rem;';
+                    container.innerHTML = html;
+                    
+                    // Style the table
+                    const table = container.querySelector('table');
+                    if (table) {
+                        table.style.cssText = 'border-collapse: collapse; width: 100%; font-family: "Segoe UI", Arial, sans-serif; font-size: 13px; background-color: white;';
+                        
+                        table.querySelectorAll('td, th').forEach(cell => {
+                            cell.style.cssText = 'border: 1px solid #ddd; padding: 10px; text-align: left; word-break: break-word;';
+                        });
+                        
+                        table.querySelectorAll('th'). forEach(header => {
+                            header.style.cssText = 'background-color: #3498db; color: white; border: 1px solid #2980b9; padding: 10px; font-weight: 600;';
+                        });
+                    }
+                    
+                    // Clear loading message and add table
+                    docViewerContainer.innerHTML = '';
+                    docViewerContainer.appendChild(container);
+                    console.log('Excel viewer created for:', doc.name);
+                } catch (error) {
+                    console.error('Error parsing Excel file:', error);
+                    docViewerContainer.innerHTML = '<p style="text-align: center; padding: 2rem; color: red;"><strong>Error loading spreadsheet.</strong><br>Please use Download or Open in New Tab to view this file.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading Excel file:', error);
+                docViewerContainer.innerHTML = '<p style="text-align: center; padding: 2rem; color: red;"><strong>Error loading file.</strong><br>Please use Download or Open in New Tab to view this file.</p>';
+            });
     } else if (isWord) {
         const container = document.createElement('div');
-        container.style.cssText = 'background-color: #f5f5f5; padding: 1rem; border-radius: 8px; text-align: center;';
+        container.style.cssText = 'background-color: #f5f5f5; padding: 2rem; border-radius: 8px; text-align: center;';
+        
+        const icon = document.createElement('div');
+        icon.style.cssText = 'font-size: 3rem; margin-bottom: 1rem;';
+        icon.innerHTML = '📝';
         
         const message = document.createElement('p');
-        message.style.cssText = 'color: #7f8c8d; margin-bottom: 1rem;';
-        message.innerHTML = `<strong>Word Document Preview</strong><br>Use the Download or Open in New Tab buttons to view this document.`;
+        message.style.cssText = 'color: #7f8c8d; margin: 0;';
+        message.innerHTML = `<strong>Word Document Preview</strong><br><br>This is a Word document (. ${fileExtension})<br><br>Use the <strong>Download</strong> or <strong>Open in New Tab</strong> buttons to view this document.`;
         
-        container.appendChild(message);
-        docViewerContainer. appendChild(container);
+        container. appendChild(icon);
+        container. appendChild(message);
+        docViewerContainer.appendChild(container);
         console.log('Word viewer note created for:', doc.name);
     } else {
         // Fallback for unknown types
         const container = document.createElement('div');
-        container.style.cssText = 'background-color: #f5f5f5; padding: 1rem; border-radius: 8px; text-align: center;';
+        container.style.cssText = 'background-color: #f5f5f5; padding: 2rem; border-radius: 8px; text-align: center;';
         
-        const message = document. createElement('p');
-        message. style.cssText = 'color: #7f8c8d; margin-bottom: 1rem;';
-        message.innerHTML = `<strong>Preview not available for .  ${fileExtension} files</strong><br><br>Use the Download button to view this file.`;
+        const icon = document. createElement('div');
+        icon. style.cssText = 'font-size: 3rem; margin-bottom: 1rem;';
+        icon.innerHTML = '❓';
         
-        container. appendChild(message);
-        docViewerContainer. appendChild(container);
-        console.  log('Unsupported file type:', fileExtension);
+        const message = document.createElement('p');
+        message.style.cssText = 'color: #7f8c8d; margin: 0;';
+        message.innerHTML = `<strong>Preview not available for .  ${fileExtension. toUpperCase()} files</strong><br><br>Use the <strong>Download</strong> button to view this file.`;
+        
+        container.appendChild(icon);
+        container.appendChild(message);
+        docViewerContainer.appendChild(container);
+        console.log('Unsupported file type:', fileExtension);
     }
     
     // Setup download button
     const downloadBtn = document.getElementById('docDownloadBtn');
     if (downloadBtn) {
-        downloadBtn.onclick = () => downloadDocument(doc.  path, doc.name);
+        downloadBtn.onclick = () => downloadDocument(doc.path, doc.name);
     }
     
     // Setup open in new tab button
