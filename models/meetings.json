@@ -78,5 +78,15 @@
         "details": "Project Status, Water Update & Daily Issues",
         "location": "Tudor Premises - F Block Stilt Parking",
         "linkedDocumentId": 17
+    },
+    {
+        "id": 14,
+        "title": "Casagrand & Owners Meeting (16-11-2024)",
+        "with": "Owners & Casagrand Representatives",
+        "date": "2024-11-16",
+        "time": "10:00 AM",
+        "details": "Patta Issues, EB Connection & Power Cut Issues, Stary Dogs, Lift Issues & Other Daily Concerns",
+        "location": "Tudor Premises - Site Office",
+        "linkedDocumentId": 18
     }
 ]

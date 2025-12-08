@@ -134,5 +134,13 @@
         "thumbnail": "📝",
         "path": "documents/01-Feb-2025 - Minutes of Meeting - CG & Owners.xlsx",
         "uploadDate": "2025-02-01"
+    },
+    {
+        "id": 18,
+        "name": "16-Nov-2024 - Minutes of Meeting - CG & Owners",
+        "type": "mom",
+        "thumbnail": "📝",
+        "path": "documents/16-Nov-2024 - Minutes of Meeting - CG & Owners.pdf",
+        "uploadDate": "2024-11-16"
     }
 ]
