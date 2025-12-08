@@ -3,23 +3,23 @@ const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav-link');
 
-hamburger.addEventListener('click', () => {
+hamburger. addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navMenu.classList.toggle('active');
 });
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e.  preventDefault();
+        e. preventDefault();
         
         // Remove active class from all links
-        navLinks.forEach(l => l.  classList.remove('active'));
+        navLinks.forEach(l => l. classList.remove('active'));
         
         // Add active class to clicked link
         link.classList.add('active');
         
         // Close menu
-        hamburger.classList. remove('active');
+        hamburger.classList.remove('active');
         navMenu.classList.remove('active');
         
         // Show section
@@ -28,13 +28,13 @@ navLinks.forEach(link => {
     });
 });
 
-// Section Management - FIXED
+// Section Management
 function showSection(sectionId) {
     console.log('showSection called with:', sectionId);
     
     // Get all sections
-    const sections = document.  querySelectorAll('.section');
-    console.log('Found sections:', sections.length);
+    const sections = document.querySelectorAll('.section');
+    console.log('Found sections:', sections. length);
     
     // Remove active from all
     sections.forEach(section => {
@@ -72,10 +72,10 @@ const dataManager = {
             }
             
             // Load meetings
-            const meetingResponse = await fetch('models/meetings.json');
+            const meetingResponse = await fetch('models/meetings. json');
             if (meetingResponse.ok) {
-                this.meetings = await meetingResponse.json();
-                console.log('Meetings loaded:', this.meetings.length);
+                this.meetings = await meetingResponse. json();
+                console.log('Meetings loaded:', this.meetings. length);
             }
             
             // Load documents
@@ -92,17 +92,17 @@ const dataManager = {
                 if (data.communications && data.communications.length > 0) {
                     this.communications = [... this.communications, ...data.communications];
                 }
-                if (data.meetings && data.meetings. length > 0) {
-                    this.meetings = [...this. meetings, ...data.meetings];
+                if (data.meetings && data.meetings.length > 0) {
+                    this.meetings = [...this.meetings, ...data.meetings];
                 }
-                if (data. documents && data.documents.length > 0) {
-                    this.documents = [...this.documents, ...data.documents];
+                if (data.documents && data.documents.length > 0) {
+                    this. documents = [...this.documents, ... data.documents];
                 }
             }
             
         } catch (error) {
             console.error('Error loading JSON files:', error);
-            console.log('Using default data.. .');
+            console.log('Using default data...');
             this.loadDefaultData();
         }
     },
@@ -153,7 +153,7 @@ const dataManager = {
     addCommunication(comm) {
         comm.id = Date.now();
         this.communications.unshift(comm);
-        this.  save();
+        this. save();
     },
 
     addMeeting(meeting) {
@@ -164,7 +164,7 @@ const dataManager = {
 
     addDocument(doc) {
         doc.id = Date.now();
-        this.documents.push(doc);
+        this. documents.push(doc);
         this.save();
     }
 };
@@ -172,7 +172,7 @@ const dataManager = {
 // Modal Management
 const modalManager = {
     openModal(modalId) {
-        document.getElementById(modalId).classList.add('active');
+        document.getElementById(modalId).classList. add('active');
     },
 
     closeModal(modalId) {
@@ -181,7 +181,7 @@ const modalManager = {
 
     setupCloseButtons() {
         const closeButtons = document.querySelectorAll('.close-modal');
-        closeButtons.  forEach(btn => {
+        closeButtons. forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const modal = e.target.closest('.modal');
                 this.closeModal(modal.id);
@@ -191,8 +191,8 @@ const modalManager = {
         // Close on outside click
         document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
-                if (e.  target === modal) {
-                    this.  closeModal(modal.id);
+                if (e. target === modal) {
+                    this. closeModal(modal.id);
                 }
             });
         });
@@ -220,23 +220,23 @@ function setupCommunications() {
 
         dataManager.addCommunication(communication);
         commForm.reset();
-        modalManager. closeModal('commModal');
+        modalManager.closeModal('commModal');
         renderCommunications();
         updateDashboard();
     });
 }
 
-// UPDATED: Render communications as timeline like meetings
+// Render communications as timeline like meetings
 function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
     // Sort communications by date in descending order
-    const sortedComms = [...dataManager.communications]. sort((a, b) => 
+    const sortedComms = [...dataManager.communications].sort((a, b) => 
         new Date(b.date) - new Date(a.date)
     );
 
     if (sortedComms.length === 0) {
-        list. innerHTML = '<p class="empty-message">No communications yet.   Add one to get started!</p>';
+        list. innerHTML = '<p class="empty-message">No communications yet.  Add one to get started!</p>';
         return;
     }
 
@@ -254,7 +254,7 @@ function renderCommunications() {
                 <div class="timeline-item">
                     <div class="timeline-marker">${iconMap[comm.type] || '📞'}</div>
                     <div class="timeline-content">
-                        <h3>${comm.name}</h3>
+                        <h3>${comm. name}</h3>
                         <p><strong>Type:</strong> ${comm.type. charAt(0).toUpperCase() + comm.type.slice(1). replace('-', ' ')}</p>
                         <p><strong>Details:</strong> ${comm.details}</p>
                         <div class="timeline-meta">
@@ -281,10 +281,10 @@ function setupMeetings() {
         e.preventDefault();
 
         const meeting = {
-            title: document.getElementById('meetingTitle').value,
-            with: document.getElementById('meetingWith'). value,
-            date: document. getElementById('meetingDate').value,
-            time: document.getElementById('meetingTime').value,
+            title: document. getElementById('meetingTitle').value,
+            with: document.getElementById('meetingWith').value,
+            date: document.getElementById('meetingDate').value,
+            time: document.getElementById('meetingTime'). value,
             details: document.getElementById('meetingDetails').value,
             location: document.getElementById('meetingLocation').value
         };
@@ -306,7 +306,7 @@ function renderMeetings() {
     );
 
     if (sortedMeetings.length === 0) {
-        list.innerHTML = '<p class="empty-message">No meetings scheduled yet.  Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No meetings scheduled yet. Add one to get started!</p>';
         return;
     }
 
@@ -336,14 +336,14 @@ function setupDocuments() {
     const filterSelect = document.getElementById('docFilter');
 
     searchBox.addEventListener('input', filterDocuments);
-    filterSelect.  addEventListener('change', filterDocuments);
+    filterSelect. addEventListener('change', filterDocuments);
 
     renderDocuments();
 }
 
 function filterDocuments() {
-    const search = document.getElementById('docSearch').value.  toLowerCase();
-    const filter = document.getElementById('docFilter').value;
+    const search = document.getElementById('docSearch').value. toLowerCase();
+    const filter = document.getElementById('docFilter'). value;
 
     const filtered = dataManager.documents.filter(doc => {
         const matchesSearch = doc.name.toLowerCase().includes(search);
@@ -362,7 +362,7 @@ function renderFilteredDocuments(docs) {
     const grid = document.getElementById('documentsList');
 
     if (docs.length === 0) {
-        grid.innerHTML = '<p class="empty-message">No documents found.  </p>';
+        grid.innerHTML = '<p class="empty-message">No documents found. </p>';
         return;
     }
 
@@ -374,7 +374,7 @@ function renderFilteredDocuments(docs) {
             <div class="doc-info">
                 <h4>${doc.name}</h4>
                 <p>${formatDate(doc.uploadDate)}</p>
-                <span class="doc-type">${doc.type.toUpperCase()}</span>
+                <span class="doc-type">${doc.type. toUpperCase()}</span>
             </div>
         </div>
     `).join('');
@@ -401,13 +401,13 @@ function downloadDocument(path, name) {
 // Dashboard Card Navigation
 function setupDashboardCards() {
     const dashboardCards = document.querySelectorAll('.dashboard-card');
-    console.log('Setting up dashboard cards.   Found:', dashboardCards.length);
+    console.log('Setting up dashboard cards.  Found:', dashboardCards.length);
     
     dashboardCards.forEach((card, index) => {
         card.style.cursor = 'pointer';
         
         card.addEventListener('click', function(e) {
-            e. preventDefault();
+            e.preventDefault();
             e.stopPropagation();
             
             let sectionId;
@@ -425,7 +425,7 @@ function setupDashboardCards() {
                 console.log('Card clicked - Navigating to:', sectionId);
                 
                 // Update nav links
-                navLinks. forEach(link => {
+                navLinks.forEach(link => {
                     if (link.getAttribute('data-section') === sectionId) {
                         link.classList.add('active');
                     } else {
@@ -434,7 +434,7 @@ function setupDashboardCards() {
                 });
                 
                 // Close menu
-                hamburger.classList. remove('active');
+                hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 
                 // Show section
@@ -444,15 +444,46 @@ function setupDashboardCards() {
     });
 }
 
+// Back Button Navigation
+function setupBackButtons() {
+    const backButtons = [
+        { id: 'backCommBtn', section: 'dashboard' },
+        { id: 'backMeetingBtn', section: 'dashboard' },
+        { id: 'backDocBtn', section: 'dashboard' },
+        { id: 'backAboutBtn', section: 'dashboard' }
+    ];
+
+    backButtons.forEach(btn => {
+        const backBtn = document.getElementById(btn. id);
+        if (backBtn) {
+            backBtn.addEventListener('click', (e) => {
+                e. preventDefault();
+                
+                // Update nav links
+                navLinks.forEach(link => {
+                    if (link.getAttribute('data-section') === btn.section) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Show section
+                showSection(btn. section);
+            });
+        }
+    });
+}
+
 // Dashboard Updates
 function updateDashboard() {
     document.getElementById('comm-count').textContent = dataManager.communications.length;
     document.getElementById('meeting-count').textContent = dataManager.meetings.length;
     document.getElementById('doc-count').textContent = dataManager.documents.length;
 
-    document.getElementById('total-comm'). textContent = dataManager.communications. length;
+    document.getElementById('total-comm').textContent = dataManager.communications.length;
     document.getElementById('total-meet').textContent = dataManager.meetings.length;
-    document.getElementById('total-docs'). textContent = dataManager.documents. length;
+    document.getElementById('total-docs').textContent = dataManager.documents.length;
 }
 
 // Utility Functions
@@ -461,9 +492,9 @@ function formatDate(dateString) {
     return new Date(dateString).toLocaleDateString('en-US', options);
 }
 
-// Initialize App - UPDATED TO USE ASYNC
+// Initialize App
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Initializing app...');
+    console.log('Initializing app.. .');
     
     // Wait for data to be loaded from JSON files
     await dataManager.init();
@@ -473,11 +504,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupMeetings();
     setupDocuments();
     setupDashboardCards();
+    setupBackButtons();
     
     updateDashboard();
     renderCommunications();
     renderMeetings();
     renderDocuments();
     
-    console.log('App initialization complete!');
+    console.log('App initialization complete! ');
 });
