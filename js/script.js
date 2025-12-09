@@ -892,7 +892,7 @@ function setupGalleryControls() {
 
     if (!track) return;
 
-    const imgWidth = 320; // width + margin-right
+    const imgWidth = 270;  // image width + margin
 
     next.addEventListener('click', () => {
         galleryIndex++;
