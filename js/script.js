@@ -10,13 +10,13 @@ hamburger.addEventListener('click', () => {
 
 navLinks.forEach(link => {
     link.addEventListener('click', (e) => {
-        e. preventDefault();
+        e.preventDefault();
         
         // Remove active class from all links
         navLinks.forEach(l => l.classList.remove('active'));
         
         // Add active class to clicked link
-        link. classList.add('active');
+        link.classList.add('active');
         
         // Close menu
         hamburger.classList.remove('active');
@@ -33,7 +33,7 @@ function showSection(sectionId) {
     console.log('showSection called with:', sectionId);
     
     // Get all sections
-    const sections = document. querySelectorAll('.section');
+    const sections = document.querySelectorAll('.section');
     console.log('Found sections:', sections.length);
     
     // Remove active from all
@@ -90,13 +90,13 @@ const dataManager = {
             if (stored) {
                 const data = JSON.parse(stored);
                 if (data.communications && data.communications.length > 0) {
-                    this.communications = [... this.communications, ...data.communications];
+                    this.communications = [...this.communications, ...data.communications];
                 }
                 if (data.meetings && data.meetings.length > 0) {
                     this.meetings = [...this.meetings, ...data.meetings];
                 }
                 if (data.documents && data.documents.length > 0) {
-                    this. documents = [...this.documents, ... data.documents];
+                    this.documents = [...this.documents, ...data.documents];
                 }
             } */
             
@@ -153,7 +153,7 @@ const dataManager = {
     addCommunication(comm) {
         comm.id = Date.now();
         this.communications.unshift(comm);
-        this. save();
+        this.save();
     },
 
     addMeeting(meeting) {
@@ -178,7 +178,7 @@ const modalManager = {
     },
 
     closeModal(modalId) {
-        document.getElementById(modalId).classList. remove('active');
+        document.getElementById(modalId).classList.remove('active');
         // Restore body scroll
         document.body.style.overflow = 'auto';
     },
@@ -193,11 +193,11 @@ const modalManager = {
         });
 
         // Close on outside click (full-page modal)
-        document. querySelectorAll('.modal').forEach(modal => {
+        document.querySelectorAll('.modal').forEach(modal => {
             modal.addEventListener('click', (e) => {
                 // Only close if clicking on the background, not the content
                 if (e.target === modal) {
-                    this. closeModal(modal.id);
+                    this.closeModal(modal.id);
                 }
             });
         });
@@ -205,7 +205,7 @@ const modalManager = {
         // Close on Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
-                const activeModal = document.querySelector('.modal. active');
+                const activeModal = document.querySelector('.modal.active');
                 if (activeModal) {
                     this.closeModal(activeModal.id);
                 }
@@ -231,8 +231,8 @@ function setupCommunications() {
         const communication = {
             name: document.getElementById('commName').value,
             type: document.getElementById('commType').value,
-            details: document.getElementById('commDetails'). value,
-            date: document. getElementById('commDate').value
+            details: document.getElementById('commDetails').value,
+            date: document.getElementById('commDate').value
         };
 
         dataManager.addCommunication(communication);
@@ -248,12 +248,12 @@ function renderCommunications() {
     const list = document.getElementById('communicationsList');
     
     // Sort communications by date in descending order
-    const sortedComms = [... dataManager.communications].sort((a, b) => 
+    const sortedComms = [...dataManager.communications].sort((a, b) => 
         new Date(b.date) - new Date(a.date)
     );
 
     if (sortedComms.length === 0) {
-        list. innerHTML = '<p class="empty-message">No communications yet.    Add one to get started!</p>';
+        list.innerHTML = '<p class="empty-message">No communications yet.    Add one to get started!</p>';
         return;
     }
 
@@ -276,12 +276,12 @@ function renderCommunications() {
                     <div class="timeline-item">
                         <div class="timeline-marker">${iconMap[comm.type] || '📞'}</div>
                         <div class="timeline-content">
-                            <h3>${comm. name}</h3>
-                            <p><strong>Type:</strong> ${comm.type. charAt(0).toUpperCase() + comm.type.slice(1). replace('-', ' ')}</p>
+                            <h3>${comm.name}</h3>
+                            <p><strong>Type:</strong> ${comm.type.charAt(0).toUpperCase() + comm.type.slice(1).replace('-', ' ')}</p>
                             <p><strong>Details:</strong> ${comm.details}</p>
                             <div class="timeline-meta">
                                 <span class="timeline-date">${formatDate(comm.date)}</span>
-                                <span class="timeline-type">${comm.type. toUpperCase()}</span>
+                                <span class="timeline-type">${comm.type.toUpperCase()}</span>
                                 ${linkedDoc ? `<button class="btn-view-doc" onclick="viewDocument(${linkedDoc.id})">📄 View Document</button>` : ''}
                             </div>
                         </div>
@@ -296,13 +296,13 @@ function renderMeetings() {
     const list = document.getElementById('meetingsList');
     
     // Sort meetings by date only in descending order (newest first)
-    const sortedMeetings = [...dataManager. meetings].sort((a, b) => {
+    const sortedMeetings = [...dataManager.meetings].sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         return dateB - dateA; // Descending order (newest first)
     });
 
-    if (sortedMeetings. length === 0) {
+    if (sortedMeetings.length === 0) {
         list.innerHTML = '<p class="empty-message">No meetings scheduled yet.   Add one to get started! </p>';
         return;
     }
@@ -311,25 +311,25 @@ function renderMeetings() {
         <div class="timeline-container">
             ${sortedMeetings.map((meeting, index) => {
                 // Find linked document
-                const linkedDoc = meeting.  linkedDocumentId ? 
-                    dataManager.documents.find(d => d.id === meeting.  linkedDocumentId) : null;
+                const linkedDoc = meeting.linkedDocumentId ? 
+                    dataManager.documents.find(d => d.id === meeting.linkedDocumentId) : null;
                 
                 return `
                     <div class="timeline-item">
                         <div class="timeline-marker">📅</div>
                         <div class="timeline-content">
-                            <h3>${meeting.  title}</h3>
+                            <h3>${meeting.title}</h3>
                             <p><strong>With:</strong> ${meeting.with}</p>
                             <p><strong>Details:</strong> ${meeting.details}</p>
                             <div class="timeline-meta">
                                 <span class="timeline-date">${formatDate(meeting.date)} at ${meeting.time}</span>
-                                ${meeting.location ? `<span class="timeline-location">📍 ${meeting. location}</span>` : ''}
-                                ${linkedDoc ? `<button class="btn-view-doc" onclick="viewDocument(${linkedDoc. id})">📄 View Document</button>` : ''}
+                                ${meeting.location ? `<span class="timeline-location">📍 ${meeting.location}</span>` : ''}
+                                ${linkedDoc ? `<button class="btn-view-doc" onclick="viewDocument(${linkedDoc.id})">📄 View Document</button>` : ''}
                             </div>
                         </div>
                     </div>
                 `;
-            }). join('')}
+            }).join('')}
         </div>
     `;
 }
@@ -350,8 +350,8 @@ function setupMeetings() {
 
         const meeting = {
             title: document.getElementById('meetingTitle').value,
-            with: document.getElementById('meetingWith'). value,
-            date: document. getElementById('meetingDate').value,
+            with: document.getElementById('meetingWith').value,
+            date: document.getElementById('meetingDate').value,
             time: document.getElementById('meetingTime').value,
             details: document.getElementById('meetingDetails').value,
             location: document.getElementById('meetingLocation').value
@@ -368,12 +368,12 @@ function setupMeetings() {
 // Document Management
 function setupDocuments() {
     const searchBox = document.getElementById('docSearch');
-    const filterSelect = document. getElementById('docFilter');
+    const filterSelect = document.getElementById('docFilter');
     const viewCardBtn = document.getElementById('viewCardBtn');
     const viewTableBtn = document.getElementById('viewTableBtn');
 
     searchBox.addEventListener('input', filterDocuments);
-    filterSelect. addEventListener('change', filterDocuments);
+    filterSelect.addEventListener('change', filterDocuments);
     
     viewCardBtn.addEventListener('click', () => switchView('card'));
     viewTableBtn.addEventListener('click', () => switchView('table'));
@@ -397,7 +397,7 @@ function switchView(view) {
 }
 
 function filterDocuments() {
-    const search = document.getElementById('docSearch').value. toLowerCase();
+    const search = document.getElementById('docSearch').value.toLowerCase();
     const filter = document.getElementById('docFilter').value;
 
     const filtered = dataManager.documents.filter(doc => {
@@ -431,8 +431,8 @@ function renderFilteredDocumentsAsCards(docs) {
     }
 
     // Sort documents by upload date (newest first)
-    const sorted = [... docs].sort((a, b) => 
-        new Date(b.uploadDate) - new Date(a. uploadDate)
+    const sorted = [...docs].sort((a, b) => 
+        new Date(b.uploadDate) - new Date(a.uploadDate)
     );
 
     grid.innerHTML = sorted.map(doc => `
@@ -443,7 +443,9 @@ function renderFilteredDocumentsAsCards(docs) {
             <div class="doc-info">
                 <h4>${doc.name}</h4>
                 <p>${formatDate(doc.uploadDate)}</p>
-                <span class="doc-type">${doc.type. toUpperCase()}</span>
+                <span class="doc-type doc-type-${doc.type}">
+                    ${doc.type.toUpperCase()}
+                </span>
             </div>
         </div>
     `).join('');
@@ -451,10 +453,10 @@ function renderFilteredDocumentsAsCards(docs) {
 
 function renderFilteredDocumentsAsTable(docs) {
     const grid = document.getElementById('documentsList');
-    grid. className = '';
+    grid.className = '';
 
     if (docs.length === 0) {
-        grid. innerHTML = '<p class="empty-message">No documents found.</p>';
+        grid.innerHTML = '<p class="empty-message">No documents found.</p>';
         return;
     }
 
@@ -464,11 +466,11 @@ function renderFilteredDocumentsAsTable(docs) {
 
         switch (currentSortColumn) {
             case 'name':
-                aVal = a. name.toLowerCase();
-                bVal = b. name.toLowerCase();
+                aVal = a.name.toLowerCase();
+                bVal = b.name.toLowerCase();
                 break;
             case 'type':
-                aVal = a.type. toLowerCase();
+                aVal = a.type.toLowerCase();
                 bVal = b.type.toLowerCase();
                 break;
             case 'uploadDate':
@@ -486,7 +488,7 @@ function renderFilteredDocumentsAsTable(docs) {
     table.className = 'documents-table';
     
     // Table header
-    const thead = document. createElement('thead');
+    const thead = document.createElement('thead');
     const headerRow = document.createElement('tr');
     
     const headers = [
@@ -497,15 +499,15 @@ function renderFilteredDocumentsAsTable(docs) {
     ];
     
     headers.forEach(header => {
-        const th = document. createElement('th');
-        th. style.width = header.width || 'auto';
+        const th = document.createElement('th');
+        th.style.width = header.width || 'auto';
         
         if (header.sortCol) {
             th.style.cursor = 'pointer';
             th.innerHTML = header.label;
             
             if (currentSortColumn === header.sortCol) {
-                th.classList. add('sort-active', `sort-${currentSortOrder}`);
+                th.classList.add('sort-active', `sort-${currentSortOrder}`);
             }
             
             th.addEventListener('click', () => {
@@ -540,17 +542,17 @@ function renderFilteredDocumentsAsTable(docs) {
         
         const cellName = document.createElement('td');
         cellName.className = 'doc-table-name';
-        cellName.textContent = doc. name;
+        cellName.textContent = doc.name;
         cellName.onclick = (e) => {
-            e. stopPropagation();
+            e.stopPropagation();
             viewDocument(doc.id);
         };
         row.appendChild(cellName);
         
         const cellType = document.createElement('td');
         const typeSpan = document.createElement('span');
-        typeSpan. className = 'doc-table-type';
-        typeSpan. textContent = doc.type. toUpperCase();
+        typeSpan.className = `doc-table-type doc-type-${doc.type}`;
+        typeSpan.textContent = doc.type.toUpperCase();
         cellType.appendChild(typeSpan);
         row.appendChild(cellType);
         
@@ -565,8 +567,8 @@ function renderFilteredDocumentsAsTable(docs) {
         tbody.appendChild(row);
     });
     
-    table. appendChild(tbody);
-    grid. innerHTML = '';
+    table.appendChild(tbody);
+    grid.innerHTML = '';
     grid.appendChild(table);
 }
 
@@ -589,8 +591,8 @@ function viewDocument(docId) {
     // Determine viewer type based on file extension
     const isImage = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(fileExtension);
     const isPdf = fileExtension === 'pdf';
-    const isExcel = ['xls', 'xlsx', 'xlsm', 'csv']. includes(fileExtension);
-    const isWord = ['doc', 'docx']. includes(fileExtension);
+    const isExcel = ['xls', 'xlsx', 'xlsm', 'csv'].includes(fileExtension);
+    const isWord = ['doc', 'docx'].includes(fileExtension);
     
     // Get the viewer container
     const docViewerContainer = document.querySelector('.doc-viewer');
@@ -608,15 +610,15 @@ function viewDocument(docId) {
         img.src = doc.path;
         img.alt = doc.name;
         img.style.cssText = 'max-width: 100%; max-height: 500px; object-fit: contain; border-radius: 8px;';
-        docViewerContainer. appendChild(img);
+        docViewerContainer.appendChild(img);
         console.log('Image viewer created for:', doc.name);
     } else if (isPdf) {
         const iframe = document.createElement('iframe');
         iframe.src = doc.path;
         iframe.type = 'application/pdf';
         iframe.style.cssText = 'width: 100%; height: 500px; border: none; border-radius: 8px;';
-        docViewerContainer. appendChild(iframe);
-        console. log('PDF viewer created for:', doc.name);
+        docViewerContainer.appendChild(iframe);
+        console.log('PDF viewer created for:', doc.name);
     } else if (isExcel) {
         // Show loading message
         const loadingMsg = document.createElement('p');
@@ -626,12 +628,12 @@ function viewDocument(docId) {
 
         // Read and display Excel file
         fetch(doc.path)
-            .then(res => res. arrayBuffer())
+            .then(res => res.arrayBuffer())
             .then(data => {
                 try {
                     const workbook = XLSX.read(data, { type: 'array' });
-                    const worksheet = workbook. Sheets[workbook.SheetNames[0]];
-                    const html = XLSX.utils. sheet_to_html(worksheet);
+                    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                    const html = XLSX.utils.sheet_to_html(worksheet);
                     
                     const container = document.createElement('div');
                     container.style.cssText = 'overflow-x: auto; max-height: 600px; overflow-y: auto; background-color: #f9f9f9; border-radius: 8px; padding: 1rem;';
@@ -646,7 +648,7 @@ function viewDocument(docId) {
                             cell.style.cssText = 'border: 1px solid #ddd; padding: 10px; text-align: left; word-break: break-word;';
                         });
                         
-                        table.querySelectorAll('th'). forEach(header => {
+                        table.querySelectorAll('th').forEach(header => {
                             header.style.cssText = 'background-color: #3498db; color: white; border: 1px solid #2980b9; padding: 10px; font-weight: 600;';
                         });
                     }
@@ -676,8 +678,8 @@ function viewDocument(docId) {
         message.style.cssText = 'color: #7f8c8d; margin: 0;';
         message.innerHTML = `<strong>Word Document Preview</strong><br><br>This is a Word document (. ${fileExtension})<br><br>Use the <strong>Download</strong> or <strong>Open in New Tab</strong> buttons to view this document.`;
         
-        container. appendChild(icon);
-        container. appendChild(message);
+        container.appendChild(icon);
+        container.appendChild(message);
         docViewerContainer.appendChild(container);
         console.log('Word viewer note created for:', doc.name);
     } else {
@@ -685,13 +687,13 @@ function viewDocument(docId) {
         const container = document.createElement('div');
         container.style.cssText = 'background-color: #f5f5f5; padding: 2rem; border-radius: 8px; text-align: center;';
         
-        const icon = document. createElement('div');
-        icon. style.cssText = 'font-size: 3rem; margin-bottom: 1rem;';
+        const icon = document.createElement('div');
+        icon.style.cssText = 'font-size: 3rem; margin-bottom: 1rem;';
         icon.innerHTML = '❓';
         
         const message = document.createElement('p');
         message.style.cssText = 'color: #7f8c8d; margin: 0;';
-        message.innerHTML = `<strong>Preview not available for .  ${fileExtension. toUpperCase()} files</strong><br><br>Use the <strong>Download</strong> button to view this file.`;
+        message.innerHTML = `<strong>Preview not available for .  ${fileExtension.toUpperCase()} files</strong><br><br>Use the <strong>Download</strong> button to view this file.`;
         
         container.appendChild(icon);
         container.appendChild(message);
@@ -760,7 +762,7 @@ function setupDashboardCards() {
                 
                 // Close menu
                 hamburger.classList.remove('active');
-                navMenu. classList.remove('active');
+                navMenu.classList.remove('active');
                 
                 // Show section
                 showSection(sectionId);
@@ -782,7 +784,7 @@ function setupBackButtons() {
         const backBtn = document.getElementById(btn.id);
         if (backBtn) {
             backBtn.addEventListener('click', (e) => {
-                e. preventDefault();
+                e.preventDefault();
                 
                 // Update nav links
                 navLinks.forEach(link => {
@@ -794,7 +796,7 @@ function setupBackButtons() {
                 });
                 
                 // Show section
-                showSection(btn. section);
+                showSection(btn.section);
             });
         }
     });

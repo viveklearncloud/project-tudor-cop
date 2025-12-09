@@ -1300,6 +1300,27 @@ body {
     }
 }
 
+/* New Document Type Colors */
+.doc-type-legal {
+    background-color: #c0392b; /* red */
+}
+
+.doc-type-financial {
+    background-color: #27ae60; /* green */
+}
+
+.doc-type-technical {
+    background-color: #8e44ad; /* purple */
+}
+
+.doc-type-agreement {
+    background-color: #2980b9; /* blue */
+}
+
+.doc-type-mom {
+    background-color: #f39c12; /* orange */
+}
+
 @media (max-width: 768px) {
     .view-toggle {
         order: -1;
