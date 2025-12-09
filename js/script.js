@@ -909,6 +909,56 @@ function setupGalleryControls() {
     });
 }
 
+/* ============================
+   FULLSCREEN PHOTO VIEWER
+============================ */
+let currentPhotoIndex = 0;
+
+function setupPhotoViewer() {
+    const viewer = document.getElementById("photoViewer");
+    const viewerImg = document.getElementById("pvImage");
+    const closeBtn = document.querySelector(".pv-close");
+    const prevBtn = document.querySelector(".pv-prev");
+    const nextBtn = document.querySelector(".pv-next");
+
+    const galleryImages = document.querySelectorAll("#galleryTrack img");
+
+    // Open viewer on image click
+    galleryImages.forEach((img, index) => {
+        img.addEventListener("click", () => {
+            currentPhotoIndex = index;
+            viewerImg.src = img.src;
+            viewer.style.display = "flex";
+        });
+    });
+
+    // Close
+    closeBtn.addEventListener("click", () => viewer.style.display = "none");
+    viewer.addEventListener("click", (e) => {
+        if (e.target === viewer) viewer.style.display = "none";
+    });
+
+    // Prev
+    prevBtn.addEventListener("click", () => {
+        currentPhotoIndex = (currentPhotoIndex - 1 + dataManager.photos.length) % dataManager.photos.length;
+        viewerImg.src = dataManager.photos[currentPhotoIndex];
+    });
+
+    // Next
+    nextBtn.addEventListener("click", () => {
+        currentPhotoIndex = (currentPhotoIndex + 1) % dataManager.photos.length;
+        viewerImg.src = dataManager.photos[currentPhotoIndex];
+    });
+
+    // ESC key closes viewer
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") viewer.style.display = "none";
+        if (e.key === "ArrowRight") nextBtn.click();
+        if (e.key === "ArrowLeft") prevBtn.click();
+    });
+}
+
+
 // Dashboard Updates
 function updateDashboard() {
     document.getElementById('comm-count').textContent = dataManager.communications.length;
@@ -941,6 +991,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupBackButtons();
     setupAboutTabs();
     setupGalleryControls();
+    setupPhotoViewer();
     
     updateDashboard();
     renderCommunications();

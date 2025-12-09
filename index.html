@@ -130,40 +130,56 @@
                     <h1>Documents</h1>
                 </div>
             </div>
-            <div class="document-filters">
-                <input type="text" id="docSearch" placeholder="Search documents..." class="search-box">
-                <select id="docFilter" class="filter-select">
-                    <option value="">All Types</option>
-                    <option value="legal">Legal</option>
-                    <option value="financial">Financial</option>
-                    <option value="technical">Technical</option>
-                    <option value="agreement">Agreement</option>
-                    <option value="mom">Minutes Of Meeting</option>
-                </select>
-                <div class="view-toggle">
-                    <button class="view-btn active" id="viewCardBtn" title="Card View">
-                        <span>🎴</span> Cards
-                    </button>
-                    <button class="view-btn" id="viewTableBtn" title="Table View">
-                        <span>📊</span> Table
-                    </button>
-                </div>
-            </div>
-            <!-- Photo Gallery Section -->
-            <div class="gallery-section">
-                <h2>Gallery</h2>
-                <div class="gallery-carousel">
-                    <button class="gallery-btn prev-btn">◀</button>
+            <!-- DOCUMENTS AREA -->
+            <div class="documents-area">
 
-                    <div class="gallery-track-wrapper">
-                        <div id="galleryTrack" class="gallery-track"></div>
+                <!-- Filters -->
+                <div class="document-filters">
+                    <input type="text" id="docSearch" placeholder="Search documents..." class="search-box">
+
+                    <select id="docFilter" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="legal">Legal</option>
+                        <option value="financial">Financial</option>
+                        <option value="technical">Technical</option>
+                        <option value="agreement">Agreement</option>
+                        <option value="mom">Minutes Of Meeting</option>
+                    </select>
+
+                    <div class="view-toggle">
+                        <button class="view-btn active" id="viewCardBtn">
+                            <span>🎴</span> Cards
+                        </button>
+                        <button class="view-btn" id="viewTableBtn">
+                            <span>📊</span> Table
+                        </button>
                     </div>
+                </div>
 
-                    <button class="gallery-btn next-btn">▶</button>
+                <!-- Documents List Grid -->
+                <div id="documentsList" class="documents-grid">
+                    <p class="empty-message">No documents available.</p>
                 </div>
             </div>
-            <div id="documentsList" class="documents-grid">
-                <p class="empty-message">No documents available.   </p>
+
+
+            <!-- GALLERY AREA (Separate Section) -->
+            <div class="gallery-area">
+                <h2 class="gallery-title">Gallery</h2>
+
+                <div class="gallery-section">
+                    <div class="gallery-carousel">
+                        
+                        <button class="gallery-btn prev-btn">❮</button>
+
+                        <div class="gallery-track-wrapper">
+                            <div id="galleryTrack" class="gallery-track"></div>
+                        </div>
+
+                        <button class="gallery-btn next-btn">❯</button>
+
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -322,6 +338,17 @@
                 <button class="btn-open-new" id="docOpenNewBtn">🔗 Open in New Tab</button>
             </div>
         </div>
+    </div>
+
+    <!-- Fullscreen Photo Viewer -->
+    <div id="photoViewer" class="photo-viewer">
+        <span class="pv-close">&times;</span>
+
+        <button class="pv-nav pv-prev">❮</button>
+
+        <img id="pvImage" class="pv-image" src="" alt="Full Image">
+
+        <button class="pv-nav pv-next">❯</button>
     </div>
 
     <!-- Footer with Marquee Copyright -->

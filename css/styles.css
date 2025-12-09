@@ -1477,6 +1477,132 @@ body {
     transform: scale(1.05);
 }
 
+/* Separate sections cleanly */
+.documents-area {
+    margin-top: 1.5rem;
+}
+
+.gallery-area {
+    margin-top: 3rem;
+}
+
+/* Title spacing */
+.gallery-title {
+    margin: 0 0 1rem 0;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+}
+
+/* Gallery Container UI */
+.gallery-section {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.gallery-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.gallery-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+.gallery-track {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.gallery-track img {
+    width: 220px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+
+.gallery-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.3rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* FULLSCREEN PHOTO VIEWER */
+.photo-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(4px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Image */
+.pv-image {
+    max-width: 90%;
+    max-height: 85%;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    animation: zoomIn 0.25s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
+/* Close Button */
+.pv-close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+/* Navigation Arrows */
+.pv-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.15);
+    border: none;
+    padding: 1rem 1.3rem;
+    font-size: 2rem;
+    color: white;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.pv-prev { left: 30px; }
+.pv-next { right: 30px; }
+
+.pv-nav:hover {
+    background: rgba(255,255,255,0.3);
+}
 
 @media (max-width: 768px) {
     .view-toggle {
