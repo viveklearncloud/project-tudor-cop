@@ -1360,11 +1360,12 @@ body {
     position: relative;
 }
 
-/* Ticker UL */
+/* Seamless Scrolling */
 .news-ticker {
     list-style: none;
-    animation: scroll-up 15s linear infinite; /* Change speed here */
     padding-left: 0;
+    animation: scroll-up-seamless 20s linear infinite;
+    will-change: transform;
 }
 
 .news-ticker-container:hover .news-ticker {
@@ -1411,13 +1412,13 @@ body {
     margin-right: 0.3rem;
 }
 
-/* Scrolling Animation */
-@keyframes scroll-up {
+/* Increase speed, smooth loop */
+@keyframes scroll-up-seamless {
     0% {
-        transform: translateY(100%);
+        transform: translateY(0);
     }
     100% {
-        transform: translateY(-100%);
+        transform: translateY(-50%); /* Important: scroll half, because we duplicate list */
     }
 }
 

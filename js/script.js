@@ -850,7 +850,8 @@ function renderNewsTicker() {
         info: "ℹ️"
     };
 
-    list.innerHTML = dataManager.news.map(news => `
+    // Generate original news items
+    const items = dataManager.news.map(news => `
         <li>
             <span class="news-icon">${iconMap[news.category] || "📌"}</span>
             <span>${news.text}</span>
@@ -859,6 +860,9 @@ function renderNewsTicker() {
             </span>
         </li>
     `).join('');
+
+    // Duplicate items for perfect infinite scrolling
+    list.innerHTML = items + items;
 }
 
 // Dashboard Updates
