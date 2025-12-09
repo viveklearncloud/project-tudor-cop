@@ -964,10 +964,12 @@ function updateDashboard() {
     document.getElementById('comm-count').textContent = dataManager.communications.length;
     document.getElementById('meeting-count').textContent = dataManager.meetings.length;
     document.getElementById('doc-count').textContent = dataManager.documents.length;
+    document.getElementById("photos-count").textContent = dataManager.photos.length;
 
     document.getElementById('total-comm').textContent = dataManager.communications.length;
     document.getElementById('total-meet').textContent = dataManager.meetings.length;
     document.getElementById('total-docs').textContent = dataManager.documents.length;
+    document.getElementById("total-photos").textContent = dataManager.photos.length;
 }
 
 // Utility Functions
