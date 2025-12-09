@@ -60,6 +60,7 @@ const dataManager = {
     meetings: [],
     documents: [],
     news: [],
+    photos: [],
 
     async init() {
         try {
@@ -91,6 +92,13 @@ const dataManager = {
             if (newsResponse.ok) {
                 this.news = await newsResponse.json();
                 console.log('News loaded:', this.news.length);
+            }
+
+            // Load photos
+            const photosResponse = await fetch('models/photos.json');
+            if (photosResponse.ok) {
+                this.photos = await photosResponse.json();
+                console.log('Photos loaded:', this.photos.length);
             }
             
             // Check localStorage for any user-added data
@@ -148,6 +156,7 @@ const dataManager = {
             } */
         ];
         this.news = [];
+        this.photos = [];
     },
 
     save() {
@@ -865,6 +874,41 @@ function renderNewsTicker() {
     list.innerHTML = items + items;
 }
 
+let galleryIndex = 0;
+
+function renderGallery() {
+    const track = document.getElementById('galleryTrack');
+    if (!track) return;
+
+    track.innerHTML = dataManager.photos.map(src => `
+        <img src="${src}" alt="gallery-photo">
+    `).join('');
+}
+
+function setupGalleryControls() {
+    const track = document.getElementById('galleryTrack');
+    const prev = document.querySelector('.prev-btn');
+    const next = document.querySelector('.next-btn');
+
+    if (!track) return;
+
+    const imgWidth = 320; // width + margin-right
+
+    next.addEventListener('click', () => {
+        galleryIndex++;
+        if (galleryIndex >= dataManager.photos.length) {
+            galleryIndex = dataManager.photos.length - 1;
+        }
+        track.style.transform = `translateX(-${galleryIndex * imgWidth}px)`;
+    });
+
+    prev.addEventListener('click', () => {
+        galleryIndex--;
+        if (galleryIndex < 0) galleryIndex = 0;
+        track.style.transform = `translateX(-${galleryIndex * imgWidth}px)`;
+    });
+}
+
 // Dashboard Updates
 function updateDashboard() {
     document.getElementById('comm-count').textContent = dataManager.communications.length;
@@ -896,12 +940,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupDashboardCards();
     setupBackButtons();
     setupAboutTabs();
+    setupGalleryControls();
     
     updateDashboard();
     renderCommunications();
     renderMeetings();
     renderDocuments();
     renderNewsTicker();
+    renderGallery();
     
     console.log('App initialization complete! ');
 });

@@ -1422,6 +1422,64 @@ body {
     }
 }
 
+/* Gallery Section */
+.gallery-section {
+    margin-top: 3rem;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.gallery-section h2 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* Carousel */
+.gallery-carousel {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gallery-track-wrapper {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+}
+
+.gallery-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.gallery-track img {
+    width: 300px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 1rem;
+}
+
+/* Prev/Next Buttons */
+.gallery-btn {
+    background: var(--accent-color);
+    border: none;
+    color: white;
+    font-size: 1.4rem;
+    padding: 0.7rem 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gallery-btn:hover {
+    background: #2980b9;
+    transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
     .view-toggle {
         order: -1;
