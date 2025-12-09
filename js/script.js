@@ -59,6 +59,7 @@ const dataManager = {
     communications: [],
     meetings: [],
     documents: [],
+    news: [],
 
     async init() {
         try {
@@ -83,6 +84,13 @@ const dataManager = {
             if (docResponse.ok) {
                 this.documents = await docResponse.json();
                 console.log('Documents loaded:', this.documents.length);
+            }
+
+            // Load news
+            const newsResponse = await fetch('models/news.json');
+            if (newsResponse.ok) {
+                this.news = await newsResponse.json();
+                console.log('News loaded:', this.news.length);
             }
             
             // Check localStorage for any user-added data
@@ -139,6 +147,7 @@ const dataManager = {
                 uploadDate: '2025-11-25'
             } */
         ];
+        this.news = [];
     },
 
     save() {
@@ -831,6 +840,27 @@ function setupAboutTabs() {
     });
 }
 
+function renderNewsTicker() {
+    const list = document.getElementById('newsTicker');
+    if (!list) return;
+
+    const iconMap = {
+        alert: "🚨",
+        update: "📰",
+        info: "ℹ️"
+    };
+
+    list.innerHTML = dataManager.news.map(news => `
+        <li>
+            <span class="news-icon">${iconMap[news.category] || "📌"}</span>
+            <span>${news.text}</span>
+            <span class="news-category category-${news.category}">
+                ${news.category.toUpperCase()}
+            </span>
+        </li>
+    `).join('');
+}
+
 // Dashboard Updates
 function updateDashboard() {
     document.getElementById('comm-count').textContent = dataManager.communications.length;
@@ -867,6 +897,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderCommunications();
     renderMeetings();
     renderDocuments();
+    renderNewsTicker();
     
     console.log('App initialization complete! ');
 });

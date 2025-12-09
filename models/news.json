@@ -1,0 +1,22 @@
+[
+    {
+        "text": "Water supply shutdown scheduled on 12th December for maintenance.",
+        "category": "alert"
+    },
+    {
+        "text": "Next association meeting planned for 15th December.",
+        "category": "update"
+    },
+    {
+        "text": "Gym renovation works will begin from next week.",
+        "category": "info"
+    },
+    {
+        "text": "New security contractor onboarding from January 2026.",
+        "category": "update"
+    },
+    {
+        "text": "Car parking layout has been revised — check the updated document section.",
+        "category": "alert"
+    }
+]

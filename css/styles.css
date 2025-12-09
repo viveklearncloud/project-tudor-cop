@@ -1321,6 +1321,106 @@ body {
     background-color: #f39c12; /* orange */
 }
 
+/* News Ticker Styles */
+/* News Ticker Wrapper */
+.news-ticker-wrapper {
+    position: relative;
+    height: 200px; /* Change height here */
+    margin-top: 2rem;
+}
+
+/* Fade Masks */
+.news-mask {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.top-mask {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+.bottom-mask {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+}
+
+/* Ticker Container */
+.news-ticker-container {
+    overflow: hidden;
+    height: 100%;
+    background: var(--white);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 1rem 1.5rem;
+    position: relative;
+}
+
+/* Ticker UL */
+.news-ticker {
+    list-style: none;
+    animation: scroll-up 15s linear infinite; /* Change speed here */
+    padding-left: 0;
+}
+
+.news-ticker-container:hover .news-ticker {
+    animation-play-state: paused;
+}
+
+/* Individual Items */
+.news-ticker li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+    line-height: 1.4rem;
+    padding-left: 1.2rem;
+    position: relative;
+}
+
+/* Category Dot Color */
+.news-category {
+    font-size: 0.85rem;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+}
+
+/* Category Colors */
+.category-alert {
+    background: #e74c3c;
+}
+
+.category-update {
+    background: #2980b9;
+}
+
+.category-info {
+    background: #27ae60;
+}
+
+/* Icons */
+.news-icon {
+    font-size: 1.1rem;
+    margin-right: 0.3rem;
+}
+
+/* Scrolling Animation */
+@keyframes scroll-up {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
 @media (max-width: 768px) {
     .view-toggle {
         order: -1;
