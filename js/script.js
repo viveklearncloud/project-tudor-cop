@@ -764,6 +764,8 @@ function setupDashboardCards() {
                 sectionId = 'meetings';
             } else if (index === 2) {
                 sectionId = 'documents';
+            } else if (index === 3) {
+                sectionId = 'documents';
             }
             
             if (sectionId) {
@@ -784,6 +786,14 @@ function setupDashboardCards() {
                 
                 // Show section
                 showSection(sectionId);
+
+                if(index === 3) {
+                    // Wait for section to be visible, then scroll to gallery
+                    setTimeout(() => {
+                        const gallery = document.querySelector(".gallery-area");
+                        if (gallery) gallery.scrollIntoView({ behavior: "smooth" });
+                    }, 150);
+                }
             }
         });
     });
