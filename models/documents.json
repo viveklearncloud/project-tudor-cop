@@ -102,5 +102,29 @@
         "thumbnail": "📝",
         "path": "documents/25-May-2024 - Minutes of Meeting - CG & Owners.pdf",
         "uploadDate": "2024-05-25"
+    },
+    {
+        "id": 2,
+        "name": "STP - PUDDLE FLANGE",
+        "type": "technical",
+        "thumbnail": "📐",
+        "path": "documents/STP - PUDDLE FLANGE.pdf",
+        "uploadDate": "2020-01-01"
+    },
+    {
+        "id": 1,
+        "name": "PLAN NO -COP",
+        "type": "technical",
+        "thumbnail": "📐",
+        "path": "documents/PLAN NO -COP.pdf",
+        "uploadDate": "2020-01-01"
+    },
+    {
+        "id": 3,
+        "name": "Water NBC",
+        "type": "legal",
+        "thumbnail": "📄",
+        "path": "documents/Water NBC.pdf",
+        "uploadDate": "2020-01-01"
     }
 ]
